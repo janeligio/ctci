@@ -9,10 +9,10 @@ JavaScript
 
 Using Set data structure
 
-`
+```
 const isUnique = (str) => {
 	const uniqStr = new Set(str);
 	return uniqStr.size === str.length;
 }
-`
+```
 
