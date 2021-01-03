@@ -1,6 +1,6 @@
-# IX. Interview Questions - 1. Arrays and Strings
+# IX. Interview Questions - 2. Linked Lists
 
-### Remove Dups
+### 2.1 Remove Dups
 
 - Write code to remove duplicates from an unsorted linked list.
 - FOLLOW UP: How would you solve this problem if a temporary buffer is not allowed?
@@ -13,27 +13,28 @@ JavaScript:
 (Singly-linked list)
 ```
 const removeDups = head => {
-	let buffer = [];
-	let curr = head;
+  let buffer = [];
+  let curr = head;
 
   buffer.push(curr.val); // First item is not duplicate
 
-	while(curr.next !== null) {
+  while(curr.next !== null) {
     let nextVal = curr.next.val;
 
-		let duplicate = false;
+    let duplicate = false;
 
     // Determine if dup
-		for(let i = 0; i < buffer.length; i++) {
-			if(buffer[i] === nextVal)
-				duplicate = true;
-		}
-    
-		if(duplicate) {
+    for(let i = 0; i < buffer.length; i++) {
+      if(buffer[i] === nextVal)
+        duplicate = true;
+    }
+
+    if(duplicate) {
       curr.next = curr.next.next;
-		} else {
+    } else {
       buffer.push(nextVal)
     }
-	}
+  }
 }
 ```
+
