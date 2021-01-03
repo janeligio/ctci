@@ -136,3 +136,24 @@ const partition = (head, partition) => {
 
 - You have two numbers represented by a linked list, where each node contains a single digit. The digits are stored in *reverse* order, such that the 1's digit is at the head of the list. Write a function that adds the two numbers and returns the sum as a linked list.
 
+JavaScript:
+```
+const sumLists = (list1, list2) => {
+  return convert(list1) + convert(list2);
+}
+
+const convert = head => {
+  let curr = head;
+  let exp = 0; // Current power of 10
+  let sum = 0;
+
+  while(curr !== null) {
+    sum += curr.val * Math.pow(10, exp);
+    exp++;
+    curr = curr.next;
+  }
+
+  return sum;
+}
+
+```
