@@ -95,3 +95,49 @@ Pseudocode:
 ```
 
 *Runtime: O(N log N)*
+
+
+** 1.5 One Away **
+
+- There are three types of edits that an be performed on strings: insert a character, remove a character, or replace a character. Given two strings, write a function to check if they are one edit (or zero edits) away.
+
+Method: Check all three instances
+- Insert a character is true if: there exists a character in the string that, if removed, would make the two strings equal.
+
+- Remove a character is true if: same as insert except you can switch parameters.
+
+- Replace a character is true if: there exists a character x in string A and a character y in string B that, if removed, would make string A and B equal.
+
+In JavaScript:
+```
+let oneAway = (stringA, stringB) => {
+  if(stringA === stringB) return true;
+
+  if(Math.abs(stringA.length - stringB.length) > 1) return false;
+
+  if(insertCharacterTrue(stringA, stringB)) return true;
+  if(insertCharacterTrue(stringB, stringA)) return true; // Check if remove character true by flipping parameters
+  if(replaceCharacterTrue(stringA, stringB)) return true;
+
+  return false;
+}
+
+let insertCharacterTrue = (stringA, stringB) => {
+  if(stringA.slice(1,stringA.length-1) === stringB) return true;
+
+  for(let i = 0; i < stringA.length - 1; i++)
+    if(stringA[i] !== stringB[i])
+      let str = stringA.splice(0,i-1) + stringA.splice(i+1,stringA.length-1);
+      return str === stringB;
+}
+
+let replaceCharacterTrue = (stringA, stringB) => {
+  if(stringA.length !== stringB.length) return false;
+
+  for(let i = 0; i < stringA.length; i++) 
+    if(stringA[i] !== stringB[i])
+      let x = stringA.slice(0,i-1) + stringA.slice(i+1, stringA.length-1);
+      let y = stringB.slice(0,i-1) + stringB.slice(i+1, stringB.length-1);
+      return x === y;
+}
+```
