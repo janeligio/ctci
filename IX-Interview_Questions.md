@@ -142,3 +142,75 @@ let replaceCharacterTrue = (stringA, stringB) => {
 }
 ```
 
+**1.6 String Compression**
+
+- Implement a method to perform basic string compression using the counts of repeated characters. For example, the string aabcccccaaa would become a2b1c5a3. If the "compressed" string would not become smaller than the original string, your method should return the original string. You can assume the string has only uppercase and lowercase letters (a-z).
+
+In JavaScript:
+
+```
+let compressString = str => {
+  let compressedString = '';
+
+  let count = 1;
+  for(let i = 0; i < str.length; i++) {
+    if(i === str.length-1) {  // Case if at end of array
+      compressedString += str[i] + count;
+    } else if(str[i] === str[i+1]) {
+      count++
+    } else {
+      compressedString += str[i] + count;
+      count = 1;
+    } 
+  }
+
+  if(str.length === compressedString.length) return str;
+  else return compressedString;
+}
+```
+
+**1.7 Rotate Matrix**
+
+- Given an image represented by an NxN matrix, where each pixel in the image is 4 bytes, write a method to rotate the image by 90 degrees. Can you do this in place?
+
+4x4 Matrix
+
+Top row:
+
+0,0 -> 3,0
+1,0 -> 3,1
+2,0 -> 3,2
+3,0 -> 3,3
+
+0,1 -> 2,0
+1,1 -> 2,1
+2,1 -> 2,2
+3,1 -> 2,3
+In JavaScript:
+```
+let rotateMatrix = matrix => {
+  let n = matrix.length;
+
+  // Initialize new matrix
+  let newMatrix = new Array(n);
+  for(let i = 0; i < newMatrix.length; i++) {
+    newMatrix[i] = new Array(newMatrix.length)
+  }
+
+  for(let x = 0; x < n.length; x++)
+    for(let y = 0; y < n.length; y++)
+      let newX = n - x;
+      let newY = x;
+      newMatrix[newX][newY] = matrix[x][y]
+
+  return newMatrix;
+}
+```
+
+A B C    H D A 
+
+D E F -> I E B
+
+H I J    J F C
+
+Notes: I don't know if you can do this in place.
