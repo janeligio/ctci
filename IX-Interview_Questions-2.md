@@ -1,4 +1,4 @@
-# IX. Interview Questions - 2. Linked Lists
+# IX. Interview Questions - Chapter 2 | Linked Lists
 
 ### 2.1 Remove Dups
 
