@@ -157,3 +157,32 @@ const convert = head => {
 }
 
 ```
+
+### 2.6 Palindrome
+
+- Implement a function to check if a linked list is a palindrome.
+
+Algorithm: Use stack and compare to original list.
+
+```
+const palindrome = head => {
+  let stack = [];
+
+  let curr = head;
+  while(curr !== null) {
+    stack.push(new Node(curr.val));
+    curr = curr.next;
+  }
+
+  curr = head;
+  let palindrome = true;
+  while(curr !== null && palindrome) {
+    if(curr.val !== stack.pop()) {
+      palindrome = false;
+    } else {
+      curr = curr.next;
+    }
+  }
+
+}
+```
