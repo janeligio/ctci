@@ -214,3 +214,51 @@ D E F -> I E B
 H I J    J F C
 
 Notes: I don't know if you can do this in place.
+
+**1.8 Zero Matrix**
+
+- Write an algorithm such that if an element in an MxN matrix is 0, its entire row and column are set to 0.
+
+In JavaScript:
+```
+let zeroMatrix = matrix => {
+  let M = matrix.length;
+  let N = matrix[0].length;
+
+  let rows = [];  // The rows to zero
+  let cols = [];  // The columns to zero
+
+  // Search for zeroes
+  for(let row = 0; row < M; row++)
+    for(let col = 0; col < N; col++)
+      if(matrix[row][column] === 0)
+        rows.push(col);
+        cols.push(row);
+
+  // Make unique to reduce runtime
+  rows = new Set(rows);
+  cols = new Set(cols);
+
+  // Zero out rows and columns
+  for(let i = 0; i < rows.length; i++) {
+    matrix = zeroRow(rows[i], matrix, M)
+  }
+  for(let i = 0; i < cols.length; i++) {
+    matrix = zeroCol(cols[i], matrix, N)
+  }
+}
+
+let zeroRow = (row, matrix, M) => {
+  for(let i = 0; i < M; i++) {
+    matrix[i][row] = 0;
+  }
+}
+
+let zeroCol = (col, matrix, N) => {
+  for(let i = 0; i < N; i++) {
+    matrix[col][i] = 0;
+  }
+}
+```
+
+Assumes matrix is mutable.
