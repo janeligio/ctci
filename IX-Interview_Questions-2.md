@@ -200,3 +200,19 @@ const palindrome = head => {
 - Input:  A -> B -> C -> d -> E -> C [the same C as earlier]
 - Output: C
 
+JavaScript:
+```
+const loopDetection = head => {
+  let refs = [];
+
+  let curr = head;
+  while(curr !== null) {
+    if(refs.indexOf(curr) < 0) {
+      return curr;
+    } else {
+      refs.push(curr);
+      curr = curr.next;
+    }
+  }
+}
+```
