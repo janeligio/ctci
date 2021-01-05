@@ -35,6 +35,7 @@ Answer:
 - FOLLOW UP: Implement a function popAt (int index) which performs a pop operation on a specific sub-stack.
 
 Design:
+```
 - SetOfStacks has:
 	- ArrayList to store stacks (list)
 	- threshold
@@ -54,7 +55,7 @@ Design:
 		- if stack is empty after popping
 			- remove from list
 			- shift items to the left to fill that space
-
+```
 
 ### 3.4 Queue via Stacks
 - Implement a MyQueue class which implements a queue using two stacks
