@@ -37,24 +37,24 @@ Answer:
 Design:
 ```
 - SetOfStacks has:
-	- ArrayList to store stacks (list)
-	- threshold
+  - ArrayList to store stacks (list)
+  - threshold
 - push(item)
-	- if list is empty add new stack and push item to stack
-	- else if the stack on the end of list is at threshold add new stack and push item to that stack
-	- else push item to the stack at the end of list
+  - if list is empty add new stack and push item to stack
+  - else if the stack on the end of list is at threshold add new stack and push item to that stack
+  - else push item to the stack at the end of list
 - pop()
-	- if list is empty throw exception
-	- pop the stack at the end of list and check if that stack is empty
-		- if empty, remove from the list
+  - if list is empty throw exception
+  - pop the stack at the end of list and check if that stack is empty
+    - if empty, remove from the list
 - isEmpty()
-	- check if list length is 0
+  - check if list length is 0
 - popAt(index)
-	- check if index is < 0 or >= list.length
-	- pop the stack at list[index]
-		- if stack is empty after popping
-			- remove from list
-			- shift items to the left to fill that space
+  - check if index is < 0 or >= list.length
+  - pop the stack at list[index]
+    - if stack is empty after popping
+      - remove from list
+      - shift items to the left to fill that space
 ```
 
 ### 3.4 Queue via Stacks
@@ -64,53 +64,53 @@ Design:
 ```
 - Has two variables: stack1, stack2
 - add(item): should add to the end of the line
-	- if stack1 empty add to stack1
-	- else push everything from stack1 to stack2, push item to stack1, then push everything from stack2 to stack1
+  - if stack1 empty add to stack1
+  - else push everything from stack1 to stack2, push item to stack1, then push everything from stack2 to stack1
 - remove(): should remove the start of the line
-	- if empty throw exception
-	- else pop stack1
+  - if empty throw exception
+  - else pop stack1
 - peek(): return top of queue
-	- if empty throw exception
-	- else return stack1.peek()
+  - if empty throw exception
+  - else return stack1.peek()
 - isEmpty()
-	- return stack1.isEmpty()
+  - return stack1.isEmpty()
 ```
 
-### Sort Stack
+### 3.5 Sort Stack
 - Write a program to sort a stack such that the smallest items are on the top. You can use an additional temporary stack, but you may not copy the elements into any other data structure (such as an array). The stack supports the following operations: push, pop, peek, and isEmpty.
 
 Design:
 ```
 Most of the design is going to involve pushing:
 - push(item)
-	- if empty, push item
-	- else peek() and compare
-		- if top of stack is less than item push to temporary stack and repeat until it is pushed
-		- else push item to top of stack
+  - if empty, push item
+  - else peek() and compare
+    - if top of stack is less than item push to temporary stack and repeat until it is pushed
+    - else push item to top of stack
 
 push(item) {
-	let new = new StackNode(item);
-	if(isEmpty()) top = new;
-	else
-		const topOfStack = peek();
-		if(topOfStack.data > new.data)
-			topOfStack.next = new;
-			top = new;
-		else
-			const tempStack = new Stack();
-			
-			while(topOfStack <= new.data && !isEmpty())
-				tempStack.push(pop());
-				topOfStack = peek();
+  let new = new StackNode(item);
+  if(isEmpty()) top = new;
+  else
+    const topOfStack = peek();
+    if(topOfStack.data > new.data)
+      topOfStack.next = new;
+      top = new;
+    else
+      const tempStack = new Stack();
+      
+      while(topOfStack <= new.data && !isEmpty())
+        tempStack.push(pop());
+        topOfStack = peek();
 
-			if(isEmpty())
-				top = new;
-				while(!tempStack.isEmpty())
-					push(tempStack.pop())
-			else
-				peek().next = new;
-				while(!tempStack.isEmpty())
-					push(tempStack.pop())
+      if(isEmpty())
+        top = new;
+        while(!tempStack.isEmpty())
+          push(tempStack.pop())
+      else
+        peek().next = new;
+        while(!tempStack.isEmpty())
+          push(tempStack.pop())
 }
 ```
 
