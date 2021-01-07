@@ -44,24 +44,24 @@ inOrderTraversal(Node node) {
 - Visits current node before child nodes
 - root is always the first node visited
 ```
-    preOrderTraversal(Node node) {
-        if(node !== null)
-            visit(node);
-            preOrderTraversal(node.left)
-            preOrderTraversal(node.right)
-    }
+preOrderTraversal(Node node) {
+    if(node !== null)
+        visit(node);
+        preOrderTraversal(node.left)
+        preOrderTraversal(node.right)
+}
 ```
 
 ## Post-Order Traversal
 - visits current node after child nodes
 - the root is always last node visited
 ```
-    postOrderTraversal(Node node) {
-        if(node !== null)
-            postOrderTraversal(node.left)
-            postOrderTraversal(node.right)
-            visit(node);
-    }
+postOrderTraversal(Node node) {
+    if(node !== null)
+        postOrderTraversal(node.left)
+        postOrderTraversal(node.right)
+        visit(node);
+}
 ```
 
 ## Binary Heaps (Min-Heaps and Max-Heaps)
@@ -95,7 +95,9 @@ Utility
 - `connected graph` a path between every pair of vertices
 - may have a cycles
 
-**Programming Representation**
+### Programming Representation
+
+**Adjacency List**
 - every node stores a list of adjacent vertices
     - in an undirect graph, an edge would be stored twice (think about why)
 
@@ -110,4 +112,93 @@ class Node {
 }
 ```
 
-### 3.1
+**Adjacency Matrix**
+- NxN matrix where N = number of nodes
+- a true value at matrix[i][j] indicates an edge from node i to node j
+- In an undirected graph, an adjacency matrix will be symmetric
+
+## Graph Search
+
+**Depth-first Search (DFS)**
+- start at root and explore each branch completely before moving on to next branch
+
+Pseudocode Implementation
+```
+dfs(Node root) {
+    if (root === null) return;
+    visit(root);
+    root.visited = true;
+    for each (Node n in root.adjacent) {
+        if(n.visited === false) {
+            dfs(n);
+        }
+    }
+}
+```
+
+**Breadth-first search (BFS)**
+- start at root and explore each neighbor before going to any of their children
+- good if you want to find the shortest path
+- remember that BFS is not recursive
+- use of queue
+
+Pseudocode Implementation
+```
+bfs(Node root) {
+    Queue queue = new Queue();
+    root.marked = true;
+    queue.enqueue(root);
+
+    while(!queue.isEmpty()) {
+        Node r = queue.dequeue();
+        visit(r);
+        foreach (Node n in r.adjacent) {
+            if (n.marked === false) {
+                n.marked = true;
+                queue.enqueue(n);
+            }
+        }
+    }
+}
+```
+
+**Bidirectional Search**
+- used to find the shortest path between a source and a destination node
+- works by running two simultaneous breadth-first searches, one from each node
+    - when their search collide, a path is found
+
+
+### 4.1 Route Between Nodes
+- Given a directed graph, design an algorithm to find out whether there is a route between two nodes.
+
+Answer:
+- implement DFS/BFS to find a specific node
+- run DFS/BFS on both nodes and return true if both searches are true
+
+Assuming the use of adjacency list and DFS implementation:
+```
+dfs(Node root, Node nodeToFind) {
+    if (root === null) return;
+    visit(root);
+    root.visited = true;
+    for each (Node n in root.adjacent) {
+        if(n.visited === false) {
+            if(n = nodeToFind) {
+                return true;
+            }
+            dfs(n);
+        }
+    }
+    return false;
+}
+
+routeBetweenNodes(Node n, Node m) {
+    return dfs(n, m) && dfs(m, n);
+}
+```
+
+### 4.2 Minimal Tree
+- Given a sorted (increasing order) array with unique integer elements, write an algorithm to create a binary search tree with minimal height
+
+
+Algorithm: 
