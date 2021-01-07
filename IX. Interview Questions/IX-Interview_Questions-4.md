@@ -250,6 +250,7 @@ class Node {
         this.next = null;
     }
 }
+```
 
 ```
 class LinkedList {
@@ -268,8 +269,6 @@ class LinkedList {
             currentNode.next = node;
     }
 }
-```
-
 ```
 
 ```
