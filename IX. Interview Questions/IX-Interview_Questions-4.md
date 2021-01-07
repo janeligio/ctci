@@ -201,4 +201,29 @@ routeBetweenNodes(Node n, Node m) {
 - Given a sorted (increasing order) array with unique integer elements, write an algorithm to create a binary search tree with minimal height
 
 
-Algorithm: 
+Algorithm: This is a pre-order traversal of the tree except we have to traverse it with an array.
+
+Middle of two indices x,y of an array = ceil( (y-x)/2)
+
+```
+minTree(list) {
+    let root = new Node();
+
+    minTreeHelper(list, 0, list.length-1, root);
+
+    return root;
+}
+
+minTreeHelper(list, start, end, node) {
+    do {
+        let middleIndex = ceil(end-start/2);    // Calculate middle index
+        node.val = list[middleIndex];   // Insert into tree
+        
+        node.left = new Node(null);
+        minTreeHelper(list, start, middleIndex-1, node.left)    // Insert the correct node in left child
+        
+        node.right = new Node(null);
+        minTreeHelper(list, middleIndex+1, end, node.right) // Repeate with right child
+    } while(start !== end)
+}
+```
