@@ -418,3 +418,32 @@ successor(node) {
         return node.parent.val; 
 }
 ```
+
+### 4.7 Build Order
+- You are given a list of projects and a list of dependencies (which is a list of pairs of projects, where the second project is dependent on the first project). All of a project's dependencies must be built before the project is. Find a build order that will allow the projects to be built. If there is no valid build order, return an error.
+
+
+### 4.8 First Common Ancestor
+- Design an algorithm and write code to find the first common ancestor of two nodes in a binary tree. Avoid storing additional nodes in a data structure. NOTE: This is not necessarily a binary search tree.
+
+Brute-Force Algorithm:
+1. Start at root and dfs for both nodes (should return true) so maybe skip this part
+2. dfs on the left subtree and the right subtree
+    1. if dfs returns false return parent
+    2. if dfs is true, then dfs on left and right subtree again and so on
+
+```
+dfs(root, searchFor) {
+    if(root === null) return;
+    if(root === searchFor) {
+        return
+    } else {
+        dfs(root.left, searchFor);
+        dfs(root.right, searchFor);
+    }
+}
+
+firstCommonAncestor(root, nodeA, nodeB) {
+    
+}
+```
