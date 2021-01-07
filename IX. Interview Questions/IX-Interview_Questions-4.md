@@ -281,7 +281,7 @@ class WrapperNode {
 ```
 
 ```
-bfs(root) {
+listOfDepths(root) {
     let queue = [];
 
     let tempQueue = [];
@@ -316,5 +316,97 @@ bfs(root) {
         let depth = tempQueue[i].depth;
         linkedList[depth].insert(tempQueue[i].node);
     }
+}
+```
+
+### 4.4 Check Balanced
+- Implement a function to check if a binary tree is balanced. For the purposes of this question, a balanced tree is defined to be a tree such that the heights of the two subtrees of any node never differs by more than one.
+
+Algorithm:
+- A tree's height is a  defined recursively the max height of its children and the height a node is the the height of a parent's + 1
+
+```
+checkBalanced(root) {
+    if(root === null) return false;
+
+    let leftHeight = helper(root.left, 0);
+    let rightHeight = helper(root.right, 0;
+
+    if(!leftHeight || !rightHeight) {
+        return false;
+    } else {
+        return (abs(leftHeight - rightHeight) <= 1);
+    }
+}
+
+helper(node, height) {
+    while(node !== null) {
+        let leftHeight = helper(node.left, height + 1);
+        let rightHeight = helper(node.right, height + 1;
+        if(!leftHeight || !rightHeight) {
+            return false;
+        }  
+    }
+
+    return 0;
+}
+```
+
+### 4.5 Validate BST
+- Implement a function to check if a binary tree is a binary search tree
+
+Algorithm:
+- In-order traverse through potential BST
+- At each traversal insert into list
+- Check if list is in ascending order
+
+```
+inOrderTraversal(root, list) {
+    while(root !== null) {
+        inOrderTraversal(root.left, list);
+        list.push(root.val);
+        inOrderTraversal(root.right, list);
+    }
+}
+```
+
+```
+validateBST(root) {
+    let list = [];
+
+    inOrderTraversal(root, list);
+
+    let current = list[0];
+    for(let i = 0; i < list.length; i++) {
+        if(current < list[i]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+```
+
+### 4.6 Successor - Incomplete
+- Write an algorithm to find the "next" node (i.e., in-order successor) of a given node in a binary search tree. You may assume that each node has a link to its parent.
+
+Algorithm:
+- Perform in-order traversal of the right subtree
+- Stop when node is null
+
+```
+inOrderTraversal(node) {
+    if(node === null) {
+        return node;
+    }
+    while(node !== null) {
+        inOrderTraversal(node.left)
+    }
+}
+```
+
+```
+successor(node) {
+
 }
 ```
