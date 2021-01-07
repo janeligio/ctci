@@ -278,7 +278,9 @@ class WrapperNode {
         this.depth = depth;
     }
 }
+```
 
+```
 bfs(root) {
     let queue = [];
 
