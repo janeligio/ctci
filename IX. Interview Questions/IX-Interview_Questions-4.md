@@ -227,3 +227,93 @@ minTreeHelper(list, start, end, node) {
     } while(start !== end)
 }
 ```
+
+### 4.3 List of Depths
+- Given a binary tree, design an algorithm which creates a linked list of all the nodes at each depth (e.,g., if you have a tree with depth D, you'll have D linked lists).
+
+Method 1:
+- Store linked lists in an array (an expanding one like an ArrayList)
+- BFS through the tree
+- keep track of height
+- insert nodes at the linkedlist at list[currentHeight]
+- How do we insert to the correct linked list?
+    - Or rather, how do we maintain the currentHeight?
+    - We know that every time you look at the left or right node, the height of that node is going to be the height of the parent + 1
+
+In JavaScript:
+
+Node/Linked List Implementation:
+```
+class Node {
+    constructor(val) {
+        this.val = val;
+        this.next = null;
+    }
+}
+
+```
+class LinkedList {
+    constructor(root) {
+        this.root = root;
+    }
+
+    insert(node) {
+        if(this.root === null)
+            this.root = node;
+        else
+            let currentNode = this.root;
+            while(currentNode.next !== null) {
+                currentNode = currentNode.next
+            }
+            currentNode.next = node;
+    }
+}
+```
+
+```
+
+```
+class WrapperNode {
+    constructor(node, depth) {
+        this.node = node;
+        this.depth = depth;
+    }
+}
+
+bfs(root) {
+    let queue = [];
+
+    let tempQueue = [];
+
+    let depth = 0;
+    queue.push(new WrapperNode(root, depth));
+
+    while(queue.length > 0 {
+        let currentNode = queue[0];
+
+        // Insert nodes in LinkedList
+
+        if(currentNode.left !== null) {
+            queue.push(new WrapperNode(currentNode.left, currentNode.depth + 1))
+        }
+        if(currentNode.right !== null) {
+            queue.push(new WrapperNode(currentNode.right, currentNode.depth + 1))
+        }
+
+        tempQueue.push(queue.peek());
+        queue.shift();
+    }
+
+    // The max depth will be at the last index
+    let maxDepth = tempQueue[tempQueue.length-1].depth;
+    let linkedLists = [];
+    for(let i = 0; i <= maxDepth; i++) {
+        linkedLists.push(new LinkedList(null));
+    }
+    // Insert the nodes at the correct index where each index = its depth in the tree
+    for(let i = 0; i < tempQueue.length; i++) {
+        let depth = tempQueue[i].depth;
+        linkedList[depth].insert(tempQueue[i].node);
+    }
+}
+```
