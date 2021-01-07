@@ -391,22 +391,30 @@ validateBST(root) {
 - Write an algorithm to find the "next" node (i.e., in-order successor) of a given node in a binary search tree. You may assume that each node has a link to its parent.
 
 Algorithm:
-- Perform in-order traversal of the right subtree
-- Stop when node is null
+- The successor of a node is either going to be 
+    1. the min of the right subtree
+    2. or its parent
 
 ```
-inOrderTraversal(node) {
-    if(node === null) {
+min(node) {
+    if(node === null){  // node doesnt have a left subtree
+        return null;
+    }
+    if(node.left === null) {
         return node;
     }
     while(node !== null) {
-        inOrderTraversal(node.left)
+        inOrderTraversal(node.left);
     }
 }
 ```
 
 ```
 successor(node) {
-
+    let x = min(node.right);
+    if(x) 
+        return x.val;
+    else
+        return node.parent.val; 
 }
 ```
