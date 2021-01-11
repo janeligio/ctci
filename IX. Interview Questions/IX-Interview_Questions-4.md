@@ -423,7 +423,7 @@ successor(node) {
 - You are given a list of projects and a list of dependencies (which is a list of pairs of projects, where the second project is dependent on the first project). All of a project's dependencies must be built before the project is. Find a build order that will allow the projects to be built. If there is no valid build order, return an error.
 
 
-### 4.8 First Common Ancestor
+### 4.8 First Common Ancestor - Incomplete
 - Design an algorithm and write code to find the first common ancestor of two nodes in a binary tree. Avoid storing additional nodes in a data structure. NOTE: This is not necessarily a binary search tree.
 
 Brute-Force Algorithm:
@@ -431,6 +431,12 @@ Brute-Force Algorithm:
 2. dfs on the left subtree and the right subtree
     1. if dfs returns false return parent
     2. if dfs is true, then dfs on left and right subtree again and so on
+Another explanation:
+1. Traverse through tree depth by depth like breadth first search
+2. At each node, run dfs to find both nodes
+3. Keep track of the nodes in which dfs finds both nodes to be found
+4. If dfs does not find both nodes in one row, the first common ancestor is in the height above
+    1. return the first common ancestor in the row above
 
 ```
 dfs(root, searchFor) {
