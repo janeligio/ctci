@@ -453,3 +453,64 @@ firstCommonAncestor(root, nodeA, nodeB) {
     
 }
 ```
+
+### 4.9 BST Sequences
+- A binary search tree was created by traversing through an array from left to right and inserting each element. Given a binary search tree with distinct element, print all possible arrays that could have led to this tree.
+
+Algorithm:
+1. The root is always going to be the first value in the array
+2. The left subtree can be inserted first
+3. The right subtree can also be inserted first
+4. Therefore, you can traverse the tree in order of root, right, left or root, left, right
+
+```
+traverseLeft(node) {
+    if(node === null) return;
+    else
+        print(node.val);
+        print(traverseLeft(node.left))
+        print(traverseLeft(node.right))
+}
+traverseRight(node) {
+    if(node === null) return;
+    else
+        print(node.val);
+        print(traverseLeft(node.right))
+        print(traverseLeft(node.left))
+}
+```
+
+```
+BSTsequences(node) {
+    traverseLeft(node);
+    traverseRight(node);
+}
+```
+
+### 4.10 Check Subtree - Incomplete
+- T1 and T2 are two very large binary trees, with T1 much bigger than T2. Create an algorithm to determine if T2 is a subtree of T1.
+- A tree T2 is a subtree of T1 if there exists a node n in T1 such that the subtree of n is identical to T2. That is, if you cut off the tree at node n, the two trees would be identical.
+
+Brute-Force Algorithm:
+1. Create function to check if two trees are equal (in value)
+2. Traverse through T1 tree running function on each subtree
+
+```
+checkIdentical(treeA, treeB) {
+
+}
+```
+
+### 4.11 Random Node - Incomplete
+- You are implementing a binary tree class from scratch which, in addition to insert, find, and delete, has a method getRandomNode() which returns a random node from the tree. All nodes should be equally likely to be chosen. Design and implement an algorithm for getRandomNode, and explain how you would implement the rest of the methods.
+
+### 4.12 Paths with Sum
+- You are given a binary tree in which each node contains an integer value (which might be positive or negative). Design an algorithm to count the number of paths that sum to a given value. The path does not need to start or end at the root or a leaf, but it must go downwards (traveling only from parent nodes to child nodes).
+
+Algorithm:
+1. Modify DFS
+    1. Instead of looking for a node, it is given an integer as a parameter
+    2. It will require a helper function that takes another integer value as a parameter that will act as a sum
+    3. For each recursion, sum the value from the root node and the node it traverses.
+    4. Return the node if the sum === the given integer value or if sum > the given integer value.
+2. Run modified DFS on all nodes
