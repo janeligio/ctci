@@ -46,4 +46,20 @@ x | x = x
 - Explanation: A string ORed by itself doesn't affect the string. 1 | 1 = 1 and 0 | 0 = 0. No bits change.
 
 ## Two's Complement and Negative Numbers
+- The sign bit is stored in the leftmost bit where 1 indicates a negative value
 
+## Arithmetic vs. Logical Right Shift
+
+- Logical Right Shift: Shift the bits and put a 0 in the most significant (left-most) bit. Indicated by a >>> operator
+
+- Arithmetic Right Shift: Shift value but fill in new bits with the value of the sign bit
+
+## Common Bit Tasks: Getting and Setting
+
+1. Get Bit
+
+2. Set Bit
+
+3. Clear Bit
+
+4. Update Bit
