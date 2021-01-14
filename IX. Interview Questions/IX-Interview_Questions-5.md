@@ -46,6 +46,7 @@ x | x = x
 - Explanation: A string ORed by itself doesn't affect the string. 1 | 1 = 1 and 0 | 0 = 0. No bits change.
 
 ## Two's Complement and Negative Numbers
+- The two's complement is equal to the NOT the integer plus 1 with the left-most bit representing the sign
 - The sign bit is stored in the leftmost bit where 1 indicates a negative value
 
 ## Arithmetic vs. Logical Right Shift
@@ -57,10 +58,29 @@ x | x = x
 ## Common Bit Tasks: Getting and Setting
 
 1. Get Bit
+**Algorithm:**
+- Shift `1` by i bits.
+- AND it with the number
+- If the bit at bit i is a 1, the result will be something > 0
+- If it's a 0 then it will return 0 
 
-2. Set Bit
+2. Set Bit.
+**Algorithm:**
+- Shift `1` by i bits.
+- OR the number with it and return it.
+- The mask should have only impacted the bit at bit i. If it was a 0, turns to 1. If 1 then it would stay 1.
 
 3. Clear Bit
+**Algorithm:**
+- Shift `1` by i bits.
+- Negate it so it looks like 11101111
+- AND it with that mask
+- Rationale: 1s will stay 1s and 0s will stay 0s. However, the 0 at bit i will always result in a 0.
+**Clearing all bits from the most significant bit through i (inclusive)**
+- Shift `1` by i bits
+- Subtract 1 from that number: Ex. 00100000 -> 00011111
+- AND it with that mask
+**Think about this: How do we clear all bits from i through 0? (i-inclusive to the least significant bits)**
 
 4. Update Bit
 
