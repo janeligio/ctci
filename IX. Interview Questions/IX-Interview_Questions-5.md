@@ -224,3 +224,16 @@ count1Bits(num) {
 	return numBits;
 }
 ```
+
+### 5.5 Debugger
+- Explain what the following code does: ((n & (n-1)) == 0)
+
+Answer:
+1. What does n-1 do?
+	1. If it's odd, it just 0s the least significant bit.
+	2. Otherwise, it switches around some 1s and 0s
+2. When is n & (n-1) equal to 0?
+	1. When the left-most bit of n is equal the sole 1 bit.
+3. What does it imply?
+	1. That n is some exponent of 2.
+4. Therefore, the piece of code checks if n is some exponent of 2 where log_x(n) = 1 where x is the place of the most significant bit.
