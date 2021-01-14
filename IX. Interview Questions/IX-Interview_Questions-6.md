@@ -12,7 +12,7 @@ Algorithm:
 4. Cross of all numbers divisible by it
 5. Repeat until you end up with a list of all prime numbers from 2 through `max`
 
-### The Heavy Pill
+### 6.1 The Heavy Pill
 > You have 20 bottles of pills. 19 bottles have 1.0 gram pills, but one has pills of weight 1.1 grams. Given a scale that provides an exact measurement, how would you find the heavy bottle? You can only use the scale once.
 
 - Each bottle has x pills with y weight
@@ -29,7 +29,7 @@ Ex. The heavier pills are in bottle 15
 	- 211.5 - 210 = 1.5
 	 - 1.5 / 0.1 = 15
 
-### Basketball - Incomplete (I'm bad at math)
+### 6.2 Basketball - Incomplete (I'm bad at math)
 > You have a basketball hoop and someone says that you can play one of two games.
 - Game 1: You get one shot to make the hoop.
 - Game 2: You get three shots and you have to make two of three shots.
@@ -78,7 +78,7 @@ Winning Game 2: P(W) = 3(P(S)*P(S)*(1-P(S))) + P(S)^3
 
 Answer: Pick Game 2 if S the probability of making a shot is less than S^3 + 3S^2 - S + 3
 
-### Dominos
+### 6.3 Dominos
 > There is an 8x8 chessboard in which two diagonally opposite corners have been cut off. You are given 31 dominos, and a single domino can cover exactly two squares. Can you use the 31 dominos to cover the entire board?
 
 - 32 White spaces, 32 Black spaces
@@ -86,3 +86,31 @@ Answer: Pick Game 2 if S the probability of making a shot is less than S^3 + 3S^
 - A single domino covers 1 B&W space.
 - 31 Dominos = 31 B&W spaces
 - This implies that there aren't enough spaces for 31 dominos to fit onto the board
+
+### 6.4 Ants on a Triangle - Incomplete (unverified)
+> There are three ants on different vertices of a triangle. What is the probability of collision (between any two or all of them) if they start walking on the sides of the triangle? Assume that each ant randomly picks a direction, with either direction being equally likely to be chosen, and that they walk at the same speed.
+> Similarly, find the probability of collision with n ants on an n-vertex polygon.
+
+- The probability of ant meeting another ant is the probability of it moving in that direction and the probability of that other ant also going in that direction
+- Since the probabilities are equal (0.5) then the chance is 0.5 * 0.5 = 0.125
+- The probability of two ants colliding and the other one walking freely is the sum of the events
+- The probability of an ant not colliding is the probability of it choosing a direction * the probability of the end on the other end of the vertex not choosing that direction
+	- The probabilities are equal so 0.5 * 0.5 = 0.125
+- Therefore the probability of 1 collision and 1 no collision = 0.125 + 0.125 = 0.25
+
+### 6.5 Jugs of Water
+> You have a five-quart jug, a three-quart jug, and an unlimited supply of water (but no measuring cups). How would you come up with exactly four quarts of water? Note that the jugs are oddly shaped, such that filling up exactly "half" of the jug would be impossible.
+
+
+The first number indicates the number of quarts in the 5-quart jug and the second, the 3-quart jug
+1. 0 0
+2. 5 0 (filled up 5q)
+3. 2 3 (dropped 3 into 3q)
+4. 0 3 (emptied 5q)
+5. 3 0 (put 3 into 5q)
+6. 3 3 (filled up 3q)
+7. 5 1 (put 2 into 5q)
+8. 0 1 (emptied 5q)
+9. 1 0 (put 1 into 5q)
+10. 1 3 (filled up 3q)
+11. 4 0 (put 3 into 5q) - done, easy peazy
