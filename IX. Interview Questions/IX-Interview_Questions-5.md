@@ -272,3 +272,23 @@ getBit(num, i) {
 }
 ```
 
+### 5.7 Pairwise Swap
+> Write a program to swap odd and even bits in an integer with as few instructions as possible (e.g., bit 0 and bit 1 are swapped, bit 2 and bit 3 are swapped, and so on).
+
+```
+pairwiseSwap(num) {
+	for(int i = 0; i < 31; i++) {
+		int even = getBit(num, i);
+		int odd = getBit(num, i+1);
+		setBit(num, odd, i);
+		setBit(num, even, i+1);
+	}
+}
+
+setBit(num, bit, i) {
+	// If bit is 0, zero out at i by ANDing num
+	if(bit == 0) return (num & ~(1 << i))
+	// If bit is 1, set bit i to 1
+	else return (num | (1 << i))
+}
+```
