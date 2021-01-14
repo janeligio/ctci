@@ -239,7 +239,7 @@ Answer:
 4. Therefore, the piece of code checks if n is some exponent of 2 where log_x(n) = 1 where x is the place of the most significant bit.
 
 ### 5.6 Conversion
-"Write a function to determine the number of bits you would need to flip to convert integer A to integer B"
+> Write a function to determine the number of bits you would need to flip to convert integer A to integer B
 
 Algorithm:
 1. Take the larger of the two numbers
