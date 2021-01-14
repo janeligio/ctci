@@ -173,3 +173,25 @@ Answer: 1:1
 
 ### 6.8 The Egg Drop Problem
 > There is a building of 100 floors. If an egg drops from the Nth floor or above, it will break. If it's dropped from any floor below, it will not brea. You're given two eggs. Find N, while minimizing the number of drops for the worst case.
+
+Brute-force:
+1. This seems like an logarithmic deduction. Start at the middle of 100 floors and drop
+2. If it broke, check the middle of the lower floors
+3. If it didn't check the middle of the upper floors.
+4. Repeat until the breaks on floor N but not floor N-1
+
+Worst case scenario is N = 100
+- How do we optimize?
+If we start at floor 50 and the egg breaks, then N = somewhere between 1-49. We can try dropping the second egg from 1 all the way up to 49 until it breaks, in which we have found floor N. 
+
+If we start at floor 10 and drop the eggs at then 20 then 30.. 100, we can start dropping the eggs at the set of ten floors before it breaks. Worst-case this would be ten 10*ith floor drops + max of ten times going from the ith floor to 100. Ex: dropping from 1, 10,... 100. Then dropping from 91-98 (if we reached 98 then we'd know it was 99). That is equal 11 + 8 times.
+
+If we did it increments of 5 floors it would be 20 drops then 19 additional drops.
+
+How about 15 floors? 15, 30..90. That's 6 drops plus 14 drops = 20 drops.
+
+The worst case can be defined as N being placed on the floor where, given the best possible algorithm. The algorithm will consist of dropping the first egg incrementally by x floors and then dropping the second egg x-1 times. This can be looked at as y = 100/x + (x - 1) where y is equal to the number of times an egg is dropped. How do we find x where y is minimized? Math.
+
+Unfortunately, I forgot how to do that from Calc I, but I plugged the formula into a calculator and the minima is, in fact, at x = 10.
+
+*This was not the fully-optimized solution, but I tried. Refer to solutions of book for it*
