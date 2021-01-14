@@ -126,3 +126,54 @@ getBit(num, i) {
 	return num & mask;
 }
 ```
+
+### 5.3 Flip Bit to Win
+- You have an integer and you can flip exactly one bit from a 0 to a 1. Write code to find the length of the longest sequence of 1s you could create.
+
+Algorithm:
+1. First, find the first 1 bit in the integer.
+2. Store max sequence in an integer
+3. Start nested loop for each bit
+	1. Each loop has a counter for sequence of 1s found
+	2. Also has an integer numZeroes for each zero it encounters
+		1. If a zero is encountered, increment counter and numZeroes
+		2. If numZeroes > 1 break.
+		3. If done looping through, break.
+		4. Store in max if max.
+
+```
+flipBitToWin(num) {
+	// Find first 1 to start looping through num
+	int start;
+	for(int i = 0; i < 32; i++) {
+		if(getBit(num, i) > 0) {
+			start = i;
+		}
+	}
+
+	int max = 0;
+	// Loop through rest of string of bits to find max sequence
+	for(int i = start; i < 32; i++) {
+		int counter = 0;
+		int numZeroes = 0;
+		for(int j = i; i < 32; i++) {
+			if(numZeroes > 1) {
+				break;
+			} else if(getBit(num, j) == 0) {
+				numZeroes++;
+			} else if(getBit(num, j) > 0 && numZeroes < 2) {
+				counter++;
+			}
+		}
+		if(counter > max) max = counter;
+	}
+
+	return max;
+}
+
+// getBit except the ith bit is counted from the most significant bits
+getBit(num, i) {
+	int mask = 1 << (32-i);
+	return num & mask;
+}
+```
