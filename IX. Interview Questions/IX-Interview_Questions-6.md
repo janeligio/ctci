@@ -121,3 +121,55 @@ The first number indicates the number of quarts in the 5-quart jug and the secon
 Answer: If there x number of blue-eyed people on the island it will x days for them to leave
 Why?
 
+### 6.7 The Apocalypse - Incomplete
+> In the new post-apocalyptic world, the world queen is desperately concerned about the birth rate. Therefore, she decrees that all families should ensure that they have one girl or else they face massive fines. If all families abide by this policy-that is, they have continue to have children until they have one girl, at which point they immediately stop-what will the gender ratio of the new generation be? (Assume that that odds of someone having a boy or a girl on any given pregnancy is equal.) Solve this out logically and then write a computer simulation of it.
+
+- What number of kids grants the higheset percentage of there existing one girl at the end of it all?
+- What number of consecutive boys is it virtually impossible not to have had a girl?
+
+B = 0.5
+BB = 0.5*0.5 = 1/4
+BBB = 0.5^3 = 1/8
+BBB = 0.5^4 = 1/16
+BBBB = 0.5^5 = 1/32
+
+G 0.5
+BG 0.75
+BBG 0.875
+BBBG 0.9375
+BBBBG 0.96875
+BBBBBG 0.984375
+
+Simulation:
+```
+function simulation(numFam) {
+	let boys = 0;
+  let girls = 0;
+  
+  for(let i = 0; i < numFam; i++) {
+  	let baby;
+    do {
+    	isGirl = makeBaby();
+      if(isGirl === 0) girls++;
+      else boys++;
+    } while(isGirl !== 0)  
+  }
+  console.log(`Boys: ${boys} Girls: ${girls} Ratio:${girls/(boys+girls)}`);
+  
+}
+
+function makeBaby() {
+	return getRandomInt(2);
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+simulation(100000);
+```
+
+Answer: 1:1
+
+### 6.8 The Egg Drop Problem
+> There is a building of 100 floors. If an egg drops from the Nth floor or above, it will break. If it's dropped from any floor below, it will not brea. You're given two eggs. Find N, while minimizing the number of drops for the worst case.
