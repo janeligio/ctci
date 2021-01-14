@@ -195,3 +195,19 @@ The worst case can be defined as N being placed on the floor where, given the be
 Unfortunately, I forgot how to do that from Calc I, but I plugged the formula into a calculator and the minima is, in fact, at x = 10.
 
 *This was not the fully-optimized solution, but I tried. Refer to solutions of book for it*
+
+### 6.9 100 Lockers
+> There are 100 closed lockers in a hallway. A man begins by opening all 100 lockers. Next, he closes every second locker. Then, on his third pass, he toggles every third locker (closes it if it is open or opens it if it is closed). This process continues for 100 passes, such that on each passi, the man toggles every ith locker. After his 100th pass in the hallway, in which he toggles only locker #100, how many lockers are open?
+
+Let's first try defining how many times a locker has been toggled. 
+
+For even numbers, if it has been toggled an even number of times, it will be closed. For odd numbers, if it has been toggled an even number of times, it will be open. 
+
+Prime numbers will end up being closed, because they will have only been touched one time - when they are encountered in their iteration.
+
+The number of times a locker has been toggled is how many multiples it has. If the number has an even number of factors, it will be closed by the 100th iteration. If it has an odd number of factors, it will be open. I learned this from the solution: only perfect squares have an odd number of factors. 
+
+Why?
+- Think about how factors work. They can be thought of as being paired. Let's look at 10. The factors are (1, 10) and (2, 5). Now look at a perfect square like 16: (1, 16), (4, 4), (8, 2). These factors can also be paired up, however it's square is only counted as one number, making the number of factors odd.
+
+Therefore, the number of lockers open is equal to the number of perfect squares. You can derive this by squaring the number from 1 until it exceeds 100. You can do this up until 10. Therefore there will be 10 lockers open.
