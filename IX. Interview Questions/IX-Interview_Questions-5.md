@@ -177,3 +177,50 @@ getBit(num, i) {
 	return num & mask;
 }
 ```
+
+### 5.4 Next Number
+- Given a positive integer, print the next smallest and the next largest number that have the same number of 1 bits in their binary representation.
+
+Brute-Force:
+1. To get the next smallest number: decrement the number until you find one with the same number of 1 bits
+2. Same with next largest except keep incrementing.
+
+```
+nextNumber(num) {
+
+	int nextSmallest, nextLargest;
+
+	// First, get the number of 1 bits in num
+	int numBits = count1Bits(num);
+
+	int numTemp = --num;
+	while(numTemp > 0) {
+		if(count1Bits(numTemp) == numBits)
+			nextSmallest = numTemp;
+			break;
+		numTemp--;
+	}
+
+	numTemp = ++num;
+	boolean found = false;
+	while(!found) {
+		if(count1Bits(numTemp) == numBits)
+			nextLargest = numTemp;
+			found = true;
+		numTemp++;
+	}
+
+	print(nextSmallest);
+	print(nextLargest);
+}
+
+count1Bits(num) {
+	int numBits = 0;
+	int numTemp = num;
+	while(numTemp > 0) {
+		if(getBit(numTemp, 0) > 0) numBits++;
+		numTemp >> 1;
+	}
+	return numBits;
+}
+```
