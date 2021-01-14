@@ -29,8 +29,60 @@ Ex. The heavier pills are in bottle 15
 	- 211.5 - 210 = 1.5
 	 - 1.5 / 0.1 = 15
 
-### Basketball
+### Basketball - Incomplete (I'm bad at math)
 > You have a basketball hoop and someone says that you can play one of two games.
 - Game 1: You get one shot to make the hoop.
 - Game 2: You get three shots and you have to make two of three shots.
 > If p is the probability of making a particular shot, for which values of p should you pick one game or the other?
+
+S = making a shot
+W = winning
+
+S = 1
+Game 1: P(W) = P(S) = 100%
+Game 2: P(W) = P(S)P(S) = 100%
+
+S = 9/10
+Game 1: P(W) = P(S) = 90%
+Game 2: P(W) = P(S)P(S) = 81%
+
+S = 0.5
+
+Game 2: P(W) =
+
+Enumeration of all winning outcomes
+
+1. 110
+2. 101
+3. 111
+4. 011
+
+The probability of 1 is P(S)*P(S)*(1-P(S))
+
+- If S = 0.6
+- The probability of 2/3 shots is 0.6*0.6*0.4 = 0.144
+- Three of these events exist
+- The probability of 2/3 shots is 0.6^3 =  0.216
+3(0.144)+0.216 = 0.648
+
+The probability of winning Game 2 is higher than the probability of making a shot
+
+The probability generalized:
+- S = making a shot
+- W = winning
+Winning Game 1: P(W) = P(S)
+
+Winning Game 2: P(W) = 3(P(S)*P(S)*(1-P(S))) + P(S)^3
+	= 3P(S)^2 + 3(1-P(S)) + P(S)^3
+	= P(S)^3 + 3P(S)^2 - P(S) + 3
+
+Answer: Pick Game 2 if S the probability of making a shot is less than S^3 + 3S^2 - S + 3
+
+### Dominos
+> There is an 8x8 chessboard in which two diagonally opposite corners have been cut off. You are given 31 dominos, and a single domino can cover exactly two squares. Can you use the 31 dominos to cover the entire board?
+
+- 32 White spaces, 32 Black spaces
+- Now either 30 W or 30 B spaces and 32 W/B spaces
+- A single domino covers 1 B&W space.
+- 31 Dominos = 31 B&W spaces
+- This implies that there aren't enough spaces for 31 dominos to fit onto the board
