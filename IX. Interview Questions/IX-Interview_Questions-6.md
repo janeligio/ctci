@@ -211,3 +211,15 @@ Why?
 - Think about how factors work. They can be thought of as being paired. Let's look at 10. The factors are (1, 10) and (2, 5). Now look at a perfect square like 16: (1, 16), (4, 4), (8, 2). These factors can also be paired up, however it's square is only counted as one number, making the number of factors odd.
 
 Therefore, the number of lockers open is equal to the number of perfect squares. You can derive this by squaring the number from 1 until it exceeds 100. You can do this up until 10. Therefore there will be 10 lockers open.
+
+### Poison
+> You have 1000 bottles of soda, and exactly one is poisoned. You have 10 test strips which can be used to detect poison. A single drop of poison will turn the test strip positive permanently. You can put any number of drops on a test strip at once and you can reuse a test strip as many times as you'd like (as long as the results are negative). However, you can only run tests once per day and it takes seven days to return a result. How would you figure out the poisoned bottle in as few days as possible?
+
+1. use 100 drops on each test strip. This will leave 9 strips left and 7 days used.
+2. Use 10 drops on each strip resulting in one unused strip. Either 8 or 9 strips left and 7 days used.
+3. If it was 9 strips left, then use 1 drop on each strip. 7 days, and you will have figured out the poisoned bottle in a week.
+	1. If it was 8 strips then you've found the poisoned bottle, but you gotta wait a week for the results.
+
+This method took 4 weeks.
+
+Next steps: *Optimize*.
