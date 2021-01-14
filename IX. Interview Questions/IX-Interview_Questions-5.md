@@ -237,3 +237,38 @@ Answer:
 3. What does it imply?
 	1. That n is some exponent of 2.
 4. Therefore, the piece of code checks if n is some exponent of 2 where log_x(n) = 1 where x is the place of the most significant bit.
+
+### 5.6 Conversion
+- Write a function to determine the number of bits you would need to flip to convert integer A to integer B
+
+Algorithm:
+1. Take the larger of the two numbers
+2. Obtain the place of the most significant bit of that number
+3. Loop through both integers and count how many bits to be flipped
+
+```
+conversion(intA, intB) {
+	int start = 0;
+	int startNum = intA > intB ? intA : intB;
+	for(int i = 0; i < 32; i++) {
+		if(getBit(startNum, i) > 0)
+			start = i;
+			break;
+	}
+
+	int counter = 0;
+	for(int i = start; i < 32; i++) {
+		if(getBit(intA, i) != getBit(intB, i))
+			counter++;
+	}
+
+	return counter;
+}
+
+// getBit except the ith bit is counted from the most significant bits
+getBit(num, i) {
+	int mask = 1 << (32-i);
+	return num & mask;
+}
+```
+
