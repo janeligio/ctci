@@ -102,3 +102,27 @@ insertion(N, M, i, j) {
 ### 5.2 Binary to String
 - Given a real number between 0 and 1 (e.g., 0.72) that is passed in as a double, print the binary representation. If the number cannot be represented accurately in binary with at most 32 characters, print "ERROR".
 
+Algorithm:
+1. Multiply the number until it is > 0 or print "ERROR" if number turns > 2^31 (which represents the max value of a signed int)
+2. Loop through bits, printing.
+
+```
+binaryToString(double) {
+	while(double < 0) {
+		if(double > pow(2, 31)) {
+			print("ERROR");
+			return;
+		}
+		double = double * 10;
+	}
+
+	for(int i = 0; i < 32; i++) {
+		print(getBit(double, i));
+	}
+}
+
+getBit(num, i) {
+	int mask = 1 << i;
+	return num & mask;
+}
+```
