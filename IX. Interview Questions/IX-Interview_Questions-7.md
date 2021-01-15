@@ -211,3 +211,71 @@ class Jukebox {
     }
 }
 ```
+
+### Parking Lot
+> Design a parking lot using object-orient principles.
+
+```
+class ParkingLot {
+    constructor(numSpots) {
+        this.spots = new Array(numSpots);
+        this.numOccupied = 0;
+        for(let i = 0; i < numSpots; i++) {
+            this.spots[i] = new ParkingSpot(i+1);
+        }
+    }
+
+    parkCar(car, spot) {
+        if(this.numOccupied === this.spots.length) {
+            console.log("Lot full.");
+        } else if(this.spots[spot].isOccupied()) {
+            let id = this.spots[spot].getId();
+            console.log("Spot #${id} taken.");
+        } else {
+            this.spots[spot]
+                .toggleOccupied()
+                .assignCar(car);
+            this.numOccupied = this.numOccupied + 1;
+        }
+    }
+    unparkCar(spot) {
+        if(!this.spots[spot].isOccupied()) {
+            let id = this.spots[spot].getId();
+            console.log(`"No car is parked here in spot #${id}`)
+        } else {
+            this.spots[spot].toggleOccupied().assignCar(null);
+        }
+    }
+}
+
+class ParkingSpot {
+    constructor(id) {
+        this.id = id;
+        this.occupied = false;
+        this.car = null;
+    }
+    toggleOccupied() {
+        this.occupied = !this.occupied;
+    }
+    assignCar(car) {
+        this.car = car;
+    }
+    isOccupied() {
+        return this.occupied;
+    }
+    getId() {
+        return this.id;
+    }
+}
+
+class Car {
+    constructor(make, model, color, year, plateNumber) {
+        this.make = make;
+        this.model = model;
+        this.color = color;
+        this.year = year;
+        this.plateNumber = plateNumber;
+    }
+}
+```
+
