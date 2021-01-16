@@ -353,3 +353,35 @@ class PuzzlePiece {
     - Add friends
     - View conversations
     - Delete conversations
+
+### 7.8 Othello
+> Othello is played as follows: Each Othello piece is white on one side and black on the other. When a piece is surrounded by its opponents on both the left and right sides, or both the top and bottom, it is said to be captured and its color is flipped. On your turn, you must capture at least one of your opponent's pieces. The game ends when either user has no more valid moves. The win is assigned to the person with the most pieces. Implement the object-oriented design for Othello.
+
+*Design*
+
+1. Piece
+    - Member variables
+        1. Color (black/white)
+    - Actions
+        1. Flip: change to opposite color
+
+2. The Game
+    - Member variables
+        1. Number of white pieces
+        2. Number of black pieces
+        3. Boolean - is game finished
+        4. Turn - the color whose turn it is
+    - Actions
+        1. Start game
+            - Allow ability to flip pieces
+        2. Flip a specific piece
+            - Check if valid flip
+                - only valid if the piece to flip is opposite color
+                - only valid if a flip results in a capture
+            - If valid flip
+                - Correctly increment/decrement number of white/black pieces
+                - Change turns to the opposite color
+            - If not valid, then deny move
+            - If no valid moves are available, end game
+            - Once game ends, check total of black and white pieces
+            - Congratulate color who had more pieces
