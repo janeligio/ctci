@@ -385,3 +385,136 @@ class PuzzlePiece {
             - If no valid moves are available, end game
             - Once game ends, check total of black and white pieces
             - Congratulate color who had more pieces
+
+### 7.9 Circular Array - Incomplete
+> Implement a `CircularArray` class that supports an array-like data structure which can be efficiently rotated. If possible, the class should use a generic type (also called a template), and should support iteration via the standard `for (Obj o : circularArray)` notation. 
+```
+class CircularArray {
+    constructor(length) {
+        this.arr = new Array(length);
+        this.length = length;
+    }
+    get(index) {
+        if(index > this.length || index < 0) {
+            throw error;
+        } else {
+            return this.arr[index];
+        }
+    }
+    set(index) {
+        if(index < 0) {
+            throw error;
+        } else if(index > this.length) {
+            const newLength = this.length * 2;
+            let newArray = new Array(newLength);
+            for(let i = 0; i < )
+        }
+    }
+}
+```
+
+### 7.10 Minesweeper
+> Design and implement a text-based Minesweeper gamae. Minesweeper is the class single-player computer game where an NxN grid has B mines (or bombs) hidden across the grid. The remaining cells are either blank or have a number behind them. The numbers reflect the number of bombs in the surrounding eight cells. The user then uncovers a cell. If it is a bomb, the player loses. If it is a number, the number is exposed. If it is a blank cell, this cell and all adjacent black cells (up to and including the surrounding numeric cells) are exposed. The player wins when all non-bomb cells are exposed. The player can also flag certain places as potential bombs. This doesn't affect game play, other than to block the user from accidentally clicking a cell that is thought to have a bomb. (Tip for the reader: if you're not familiar with this game, please play a few rounds online first.)
+
+class Minesweeper {
+    const NOT_STARTED = 0;
+    const STARTED = 1;
+
+    constructor(N, B) {
+        this.board = init(N, B);
+        this.gameState = NOT_STARTED;
+    }
+
+    startGame() {
+        this.gameState = STARTED;
+    }
+
+    endGame() {
+        this.gameState = NOT_STARTED;
+    }
+
+    pickCell(x, y) {
+        const cellVal = this.board[x][y].get();
+        if(cellVal === 'B') {
+            // cell was a mine, end game;
+            endGame();
+        } else if(cellVal !== '') {
+            // If it is a cell with a number
+            this.board[x][y].reveal();
+        } else {
+            revealSurroundingCells(x, y);
+        }
+    }
+
+    revealCell(x, y) {
+        this.board[x][y].reveal();
+    }
+
+    revealSurroundingCells(x, y) {
+        // Algorithm:
+        // Run breadth-first search from an indicated cell location,
+        // when a cell is encountered and it is not a bomb, mark as visited and reveal cell
+        // If a cell is a bomb, return
+        // Run until contiguous cells are revealed
+    }
+
+    init(N, B) {
+        let board = new Array(N);
+        for(let i = 0; i < N; i++) {
+            board[i].new Array(N);
+        }
+        board = placeCells(board);
+        board = placeBombs(B); // 
+        board = 
+    }
+
+    placeCells(board) {
+        let newBoard = board;
+        for(let i = 0; i < newBoard.length; i++) {
+            for(let j = 0; j < newBoard[i].length; j++) {
+                newboard[i][j] = new Cell('');
+            }
+        }
+        return newBoard;
+    }
+
+    placeBombs(B) {
+        // Randomly place B bombs
+    }
+
+    placeValues(board) {
+        let newBoard = [...board];
+        for(let i = 0; i < newBoard.length; i++) {
+            for(let j = 0; j < newBoard[i].length; j++) {
+                let cell = newBoard[i][j].get();
+                if(cell !== 'B') {
+                    // If not a bomb
+                    newBoard[i][j].set(numAdjacentBombs(newBoard, i, j));
+                }
+            }
+        }
+    }
+
+    numAdjacentBombs(board, x, y) {
+        // Get number of bombs of a cell given its coordinates and the board
+    }
+}
+
+class Cell {
+    constructor(value) {
+        this.value = value;
+        this.hidden = true;
+    }
+
+    get() {
+        return this.value;
+    }
+
+    set() {
+        this.value = value;
+    }
+
+    reveal() {
+        this.hidden = false;
+    }
+}
