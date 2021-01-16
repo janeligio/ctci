@@ -521,3 +521,110 @@ class Cell {
     }
 }
 ```
+
+### 7.11 File System - Incomplete
+> Explain the data structures and algorithms that you would use to design an in-memory file system. Illustrate with an example in code where possible.
+
+### 7.12 Hash Table
+> Design and implement a hash table which uses chaining (linked lists) to handle collisions.
+
+```
+class HashTable {
+    constructor(size) {
+        this.arr = new Array(size) {
+        this.length = size;
+        }
+    }
+
+    add(obj) {
+        let index = hash(obj);
+        if(this.arr[index] === undefined) {
+            this.arr[index] = new LinkedList(obj);
+        } else {
+            this.arr[index].add(obj);
+        }
+    }
+
+    get(obj) {
+        let index = hash(obj);
+        let ret = this.arr[index].get(obj);
+        if(this.arr[index].length === 0) {
+            this.arr[index] = null; // Remove linked list if that linked list is now empty
+        }
+        return ret;
+    }
+
+    hash(obj) {
+        obj.hashCode() % this.length;
+    }
+}
+```
+```
+class LinkedList {
+    constructor(initialValue) {
+        this.length = 1;
+        this.head = new Node(initialValue);
+    }
+
+    add(value) {
+        let newNode = new Node(value);
+        if(this.head === null) {
+            this.head = newNode;
+        } else {
+            // Insert at end of linked list
+            let currentNode = this.head;
+            while(currentNode.next !== null) {
+                currentNode = currentNode.next;
+            }
+            currentNode.next = newNode;
+        }
+    }
+
+    get(value) {
+        let ret;
+        if(this.head === null) {
+            console.log("Error");
+        } else if(this.head.val() === value) {
+            ret = this.head.val();
+            this.head = this.head.next;
+        } else {
+            let currentNode = this.head;
+            while(currentNode !== null) {
+                if(currentNode.next.val() === value) {
+                    ret = currentNode.next.val();
+                    currentNode.next = currentNode.next.next;
+                    return ret;
+                } else {
+                    currentNode = currentNode.next;
+                }
+            }
+        }
+    }
+}
+```
+```
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.next = null;
+    }
+    
+    val() {
+        return this.value;
+    }
+}
+```
+```
+// Source: https://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
+
+String.prototype.hashCode = function(){
+	var hash = 0;
+	if (this.length == 0) return hash;
+	for (i = 0; i < this.length; i++) {
+		char = this.charCodeAt(i);
+		hash = ((hash<<5)-hash)+char;
+		hash = hash & hash; // Convert to 32bit integer
+	}
+	return hash;
+}
+```
