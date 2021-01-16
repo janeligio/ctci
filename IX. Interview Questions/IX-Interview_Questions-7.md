@@ -307,3 +307,49 @@ class PuzzlePiece {
     }
 }
 
+### 7.7 Chat Server
+> Explain how you would design a chat server. In particular, provide details about the various backend components, classes, and methods. What would be the hardest problems to solve?
+
+**Backend**
+- A server that the client receives all its data from
+- Connected to a database server that stores all the data
+    1. User
+        - unique id
+        - username
+        - email
+        - password
+        - friends list
+        - profile picture
+    2. Messsage
+        - sender id
+        - recipient(s') id
+        - conversation id (conversation it belongs to)
+        - message
+        - date
+    3. Conversation
+        - conversation id
+        - members' ids
+        - messages
+- Actions
+    - Authenticate user given a username/email and password
+    - Fetch conversations
+        - Within each conversation, fetch messages
+    - Search user
+    - Send message
+    - Start conversation
+    - Delete conversation
+
+**Frontend**
+1. User authentication
+    - user must register for an account
+    - user must then use its credentials to authenticate
+    - user is then granted access to its conversations
+    - user can log out atnd invalidate session
+2. Actions
+    - Start conversation
+        - Search for a user and start conversation by sending message
+    - Accept a conversation
+    - Send message
+    - Add friends
+    - View conversations
+    - Delete conversations
