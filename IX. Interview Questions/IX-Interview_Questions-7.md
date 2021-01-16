@@ -212,7 +212,7 @@ class Jukebox {
 }
 ```
 
-### Parking Lot
+### 7.4 Parking Lot
 > Design a parking lot using object-orient principles.
 
 ```
@@ -279,6 +279,31 @@ class Car {
 }
 ```
 
-### Online Book Reader
+### 7.5 Online Book Reader - Incomplete
 > Design the data structures for an online book reader system.
+
+### 7.6 Jigsaw - Incomplete
+> Implement an NxN jigsaw puzzle. Design the data structures and explain an algorithm to solve the puzzle. You can assume that you have a `fitsWith method which, when passed two puzzle edges, returns true if the two edges belong together.
+
+class JigsawPuzzle {
+    constructor(n) {
+        this.puzzle = new Array(n);
+        for(let i = 0; i < n; i++) {
+            this.puzzle[i] = new Array(n);
+        }
+        this.solved = false;
+    }
+    placePiece() {
+
+    }
+    removePiece() {
+
+    }
+}
+
+class PuzzlePiece {
+    constructor() {
+
+    }
+}
 
