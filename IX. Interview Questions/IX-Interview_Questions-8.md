@@ -146,9 +146,61 @@ function recursiveMultiply(x, y) {
 }
 ```
 
-### 8.6 Towers of Hanoi
+### 8.6 Towers of Hanoi - Incomplete
 > In the classic problem of the Towers of Hanoi, you have 3 towers and N disks of different sizes which can slide onto any tower. The puzzle starts with disks sorted in ascending order of size from top to bottom (i.e., each disk sits on top of an even larger one). You have the following constraints:
 1. Only one disk can be moved at a time.
 2. A disk is slid off the top of one tower onto another tower.
 3. A disk cannot be placed on top of a smaller disk.
 > Write a program to move the disks from the first tower to the last using stacks.
+
+```
+function towersOfHanoi(N) {
+    let towerA = [];
+    let towerB = [];
+    let towerC = [];
+
+    for(let i = N; i > 0; i--) {
+        towerA.push(i);
+    }
+}
+```
+
+### 8.7 Permutations without Dups
+> Write a method to compute all permutations of a string of unique characters.
+
+```
+// Brute force implementation
+
+function permutationWithoutDups(str) {
+    let permutations = [];
+    
+    permutations.push(str);
+    let s = '';
+    for(let i = str.length-1; i >= 0; i--) {
+        s += str[i];
+    }
+    permutations.push(s);
+
+    for(let i = 0; i < str.length; i++) {
+        let strWithoutCharacter = str.slice(0, i) + str.slice(i+1, str.length);
+        let permutation = insertCharInEachPos(str[i], strWithoutCharacter);
+        permutations = [...permutations, ...permutation];
+    }
+
+    return new Set(permutations);
+}
+
+function insertCharInEachPos(c, str) {
+    let permutations = [];
+
+    let s = '';
+    for(let i = 0; i < str.length; i++) {
+        let beginningStr = str.slice(0, i);
+        let endStr = str.slice(i, str.length);
+        s = beginningStr + c + endStr;
+        permutations.push(s);
+    }
+    permutations.push(str+c);
+    return permutations;
+}
+```
