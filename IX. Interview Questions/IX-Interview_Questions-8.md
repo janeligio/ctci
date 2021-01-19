@@ -20,7 +20,9 @@ function tripleStep(n) {
 
 function tripleStep(n) {
     let memo = new Array(n+1);
-    for(let i = 0; i < n; i++) {
+
+    // Zero out because JavaScript doesn't automatically do it
+    for(let i = 0; i < n+1; i++) {
         memo[i] = 0;
     }
 
@@ -39,3 +41,26 @@ function tripleStep(n) {
 
 ### 8.2 Robot in a Grid
 > Imagine a robot sitting on the upper left corner of grid with r rows and c columns. The robot can only move in two directions, right and down, but certain cells are "off limits" such that the robot cannot step on them. Design an algorithm to find a path for the robot from the top left to the bottom right.
+
+```
+function robotInAGrid(r, c, grid) {
+    return robotInAGridHelper(0, 0, r, c, grid, '');
+}
+
+function robotInAGridHelper(x, y, r, c, grid, path) {
+    let rowTraversal = 'r';
+    let colTraversal = 'c';
+
+    if(x === r-1 && y === c-1) {
+        return '';
+    }
+
+    if(grid[x+1][y] !== 'off limits' && (x+1) < r-2) {
+        return robotInAGridHelper(x+1, y, r, c, grid, path + rowTraversal);
+    }
+    if(grid[x][y+1] !== 'off limits' && (y+1) < c-2) {
+        return robotInAGridHelper(x, y+1, r, c, grid, path + colTraversal);
+    }
+
+}
+```
