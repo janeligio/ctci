@@ -64,3 +64,91 @@ function robotInAGridHelper(x, y, r, c, grid, path) {
 
 }
 ```
+
+### 8.3 Magic Index
+> A magic index in an array A[0...n-1] is defined to be an index such that A[i] = i. Given a sorted array of distinct integers, write a method to find a magic index, if one exists, in array A.
+
+> *FOLLOW UP - What if the values are not distinct?*
+
+- Since the array is sorted, binary search seems like a viable option.
+- arr[i] = x
+- if i < x ... 
+    - the magic index can't be i
+    - the magic index can't be > i
+    - so look in the left side
+- if i > x ... a magic index may be in the "right" side of the array
+    - the magic index can't be i
+    - the magic index can't be > i
+    - so look in the right side
+
+```
+// First Attempt
+function magicIndex(arr) {
+    if(arr.length === 2) {
+        if(arr[0] === 0) return 0;
+        if(return [1] === 1) return 1;
+        return 'No magic index';
+    }
+
+    let middleIndex = Math.floor(arr.length / 2);
+
+    let i = arr[middleIndex];
+
+    if(i === middleIndex) {
+        return middleIndex;
+    } else if(middleIndex < i) {
+        magicIndex(arr.slice(0, middleIndex));
+    } else if(middleIndex > i) {
+        magicIndex(arr.slice(middleIndex + 1, arr.length))
+    }
+}
+```
+
+- You can deduce that if you traverse the array from 0 to n-1, if arr[i] > i, the next index to search from is arr[i] + 1, because the magic index can't be in those indeces. 
+- Ex: [2, 10, ... ]
+    - arr[2] > 10
+    - therefore, if a magic index exists, it is not at arr[3] because arr[3] > 10 and 3 is definitely less than 10.
+    - it also can't be at arr[10+1] because 11 (if it exists) has to be somwhere between arr[3] and arr[arr[3]+1]
+    - wait... yeah it can't be in the right side of the array
+- So where do we start searching?
+    - Let's assume the magic index is 5 => arr[5] = 5
+    - If the array is sorted, then there exists numbers < 5 that populate the array
+        - Those numbers will also be magic indeces
+
+### 8.4 Power Set - Incomplete
+> Write a method to return all subsets of a set.
+
+- Power Set: The set of all subsets of a set including empty set and itself.
+
+```
+// Brute-force
+powerSet(set) {
+
+}
+```
+
+### 8.5 Recursive Multiply
+> Write a recursive function to multiply two positive integers without using the * operator. You can use addition, subtraction, and bit shifting, but you should minimize the number of those operations.
+
+```
+function recursiveMultiply(x, y) {
+    if(y === 0) return 0;
+
+    return x + recursiveMultiplyHelper(x, y-1);
+}
+```
+A little more optimized:
+```
+function recursiveMultiply(x, y) {
+    if(y === 0) return 0;
+    if(y === 1) return x;
+    return recursiveMultiplyHelper((x << 1), (y-2));
+}
+```
+
+### 8.6 Towers of Hanoi
+> In the classic problem of the Towers of Hanoi, you have 3 towers and N disks of different sizes which can slide onto any tower. The puzzle starts with disks sorted in ascending order of size from top to bottom (i.e., each disk sits on top of an even larger one). You have the following constraints:
+1. Only one disk can be moved at a time.
+2. A disk is slid off the top of one tower onto another tower.
+3. A disk cannot be placed on top of a smaller disk.
+> Write a program to move the disks from the first tower to the last using stacks.
