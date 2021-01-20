@@ -154,14 +154,29 @@ function recursiveMultiply(x, y) {
 > Write a program to move the disks from the first tower to the last using stacks.
 
 ```
-function towersOfHanoi(N) {
+function init(N) {
     let towerA = [];
     let towerB = [];
     let towerC = [];
-
+    
     for(let i = N; i > 0; i--) {
         towerA.push(i);
     }
+
+    towersOfHanoi(towerA, towerB, towerC, N);
+}
+function towersOfHanoi(towerA, towerB, towerC, N) {
+    // Base case?
+    if(towerA.length === 0 && towerB.length === 0 && towerC.length === N) {
+        return ; // something
+    }
+
+
+
+}
+
+function moveDisk(tower1, tower2) {
+    if()
 }
 ```
 
@@ -204,3 +219,18 @@ function insertCharInEachPos(c, str) {
     return permutations;
 }
 ```
+
+### 8.8 Permutations with Dups - Incomplete
+> Write a method to compute all permutations of a string whose characters are not necessarily unique. The list of permutations should not have duplicates.
+
+What does a string without unique characters imply?
+
+### 8.9 Parens
+> Implement an algorithm to print all valid (e.g., properly opened and closed) combinations of n pairs of parentheses.
+
+What is a valid string of parentheses?
+- p = () or ''
+- p = *(*)*
+- * means zero or more instances can occur
+*A valid string N parentheses pairs is one where there are N opening parentheses and N closing parentheses.
+
