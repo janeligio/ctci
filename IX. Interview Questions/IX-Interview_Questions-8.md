@@ -228,10 +228,10 @@ What does a string without unique characters imply?
 ### 8.9 Parens
 > Implement an algorithm to print all valid (e.g., properly opened and closed) combinations of n pairs of parentheses.
 
-What is a valid string of parentheses?
-- p = () or ''
-- p = *(*)*
+What is a valid parenthesis pair?
+- p = ( ) or ''
+- p = \*( \* ) \*
 - \* means zero or more instances can occur
 
-*A valid string N parentheses pairs is one where there are N opening parentheses and N closing parentheses.*
+*A valid string of N parentheses pairs is one where there are N opening parentheses and N closing parentheses.*
 
