@@ -232,5 +232,6 @@ What is a valid string of parentheses?
 - p = () or ''
 - p = *(*)*
 - \* means zero or more instances can occur
+
 *A valid string N parentheses pairs is one where there are N opening parentheses and N closing parentheses.*
 
