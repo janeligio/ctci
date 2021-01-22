@@ -146,7 +146,7 @@ function recursiveMultiply(x, y) {
 }
 ```
 
-### 8.6 Towers of Hanoi - Incomplete
+### 8.6 Towers of Hanoi
 > In the classic problem of the Towers of Hanoi, you have 3 towers and N disks of different sizes which can slide onto any tower. The puzzle starts with disks sorted in ascending order of size from top to bottom (i.e., each disk sits on top of an even larger one). You have the following constraints:
 1. Only one disk can be moved at a time.
 2. A disk is slid off the top of one tower onto another tower.
@@ -162,21 +162,89 @@ function init(N) {
     for(let i = N; i > 0; i--) {
         towerA.push(i);
     }
+    let moves = ['AB', 'AC', 'BA', 'BC', 'CA', 'CB'];
 
-    towersOfHanoi(towerA, towerB, towerC, N);
+    console.log(towersOfHanoi(towerA, towerB, towerC, N, moves, moves[0]));
 }
-function towersOfHanoi(towerA, towerB, towerC, N) {
+
+function towersOfHanoi(towerA, towerB, towerC, N, moves, currentMove) {
     // Base case?
     if(towerA.length === 0 && towerB.length === 0 && towerC.length === N) {
-        return ; // something
+        return [towerA, towerB, towerC]; // something
     }
 
+    console.log(towerA, towerB, towerC, currentMove);
+    
+    let newTowerA = [...towerA];
+    let newTowerB = [...towerB];
+    let newTowerC = [...towerC];
 
+    // Possible moves: A to B, A to C, B to A, B to C, C to A, C to B
+    if(currentMove === 'AB') {
+        let newState = moveDisk(towerA, towerB);
+        if(!newState) return false;
+        newTowerA = newState[0];
+        newTowerB = newState[1];
+    }
+    if(currentMove === 'AC') {
+        let newState = moveDisk(towerA, towerC);
+        if(!newState) return false;
+        newTowerA = newState[0];
+        newTowerC = newState[1];
+    }
+    if(currentMove === 'BA') {
+        let newState = moveDisk(towerB, towerA);
+        if(!newState) return false;
+        newTowerB = newState[0];
+        newTowerA = newState[1];
+    }
+    if(currentMove === 'BC') {
+        let newState = moveDisk(towerB, towerC);
+        if(!newState) return false;
+        newTowerB = newState[0];
+        newTowerC = newState[1];
+    }
+    if(currentMove === 'CA') {
+        let newState = moveDisk(towerC, towerA);
+        if(!newState) return false;
+        newTowerC = newState[0];
+        newTowerA = newState[1];
+    }
+    if(currentMove === 'CB') {
+        let newState = moveDisk(towerC, towerB);
+        if(!newState) return false;
+        newTowerC = newState[0];
+        newTowerB = newState[1];
+    }
 
+    let result;
+    let index = moves.indexOf(currentMove);
+
+    let newMoves = [...moves.slice(index), ...moves.slice(0, index)];
+
+    for(let i = 0; i < moves.length; i++) {
+        result = towersOfHanoi(newTowerA, newTowerB, newTowerC, N, moves, newMoves[i]);
+    }
+    return result;
 }
 
 function moveDisk(tower1, tower2) {
-    if()
+    // What defines a legal move?
+    if(tower1.length <= 0) return false;
+
+    let newTower1 = [...tower1];
+    let newTower2 = [...tower2];
+
+    if(tower2.length > 0) {
+        let pop1 = tower1[tower1.length-1];
+        let pop2 = tower1[tower1.length-2];
+        if(pop1 > pop2) return false;
+    }
+
+    let disk = newTower1.pop();
+    newTower2.push(disk);
+
+    return [newTower1, newTower2];
 }
 ```
 
@@ -227,11 +295,17 @@ What does a string without unique characters imply?
 
 ### 8.9 Parens
 > Implement an algorithm to print all valid (e.g., properly opened and closed) combinations of n pairs of parentheses.
+- Sample output: ((())), (()()), (())(), ()(()), ()()()
 
 What is a valid parenthesis pair?
 - p = ( ) or ''
-- p = \*( \* ) \*
+- p = \* ( \* ) \*
 - \* means zero or more instances can occur
 
 *A valid string of N parentheses pairs is one where there are N opening parentheses and N closing parentheses.*
 
+```
+function parens(N) {
+
+}
+```
