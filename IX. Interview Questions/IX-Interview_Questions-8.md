@@ -412,7 +412,7 @@ function getRandomInt(max) {
 }
 ```
 
-### Coins
+### 8.11 Coins
 > Given an infinite number of quarters (25 cents), dimes (10 cents), nickels (5 cents), and pennies (1 cent), write code to calculate the number of ways of representing n cents.
 
 ```
@@ -431,5 +431,64 @@ function coinsHelper(n, count) {
     }
 
     return coinsHelper(n, count+25) + coinsHelper(n, count+10) + coinsHelper(n, count+5)  + coinsHelper(n, count+1);
+}
+```
+
+### 8.12 Eight Queens
+> Write an algorithm to print all ways of arranging eight queens on an 8x8 chess board so that none of them share the same row, column, or diagonal. In this case, "diagonal" means all diagonals, not just the two that bisect the board.
+
+```
+function init() {
+    let board = new Array(8);
+    for(let i = 0; i < board.length; i++) {
+        board[i] = new Array(8);
+    }
+    for(let i = 0; i < board.length; i++) {
+        for(let j = 0; j < board.length; j++) {
+            board[i][j] = 0;
+        }
+    }
+    for(let i = 0; i < board.length; i++) {
+        board[0][i] = 1;
+    }
+
+    board = eightQueens(board);
+
+}
+
+function eightQueens(board) {
+    // Algorithm
+    // Base case
+    // 1. If all queens are not violating any rules, return 1
+}
+```
+
+### 8.13 Stack of Boxes - Incomplete
+> You have a stack of n boxes, with widths w, heights h, and depths d. The boxes cannot be rotated and can only be stacked on top of one another if each box in the stack is strictly larger than the box above it in width, height, and depth. Implement a method to compute the height of the tallest possible stack. The height of a stack is the sum of the heights of each box.
+
+```
+class Box {
+    constructor(width, height, depth) {
+        this.width = width;
+        this.height = height;
+        this.depth = depth;
+    }
+}
+
+function init() {
+    let max = stackOfBoxes(n, boxes)
+}
+```
+
+### 8.14 Boolean Evaluation - Incomplete
+> Given a boolean expression consisting of the symbols 0 (false), 1 (true), & (AND), | (OR), and ^ (XOR), and a desired boolean result value `result`, implement a function to count the number of ways of parenthesizing the expression such that it evalutes to `result`.
+
+```
+function booleanEvaluation(expression, result) {
+
+}
+
+function parseExpression(expression) {
+
 }
 ```
