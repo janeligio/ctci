@@ -400,7 +400,7 @@ function paintFill(image, point, color) {
     }
 
     let newPoints = [[x,y-1], [x-1, y], [x+1, y], [x, y+1]];
-    
+
     for(let i = 0; i < newPoints.length; i++) {
         paintFill(image, newPoints[i], color);
     }
@@ -409,5 +409,27 @@ function paintFill(image, point, color) {
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
+}
+```
+
+### Coins
+> Given an infinite number of quarters (25 cents), dimes (10 cents), nickels (5 cents), and pennies (1 cent), write code to calculate the number of ways of representing n cents.
+
+```
+// Brute force implementation
+function coins(n) {
+    let total = coinsHelper(n, 0);
+    console.log(`Total: ${total}`);
+}
+
+function coinsHelper(n, count) {
+    if(n === count) {
+        return 1;
+    }
+    if(count > n) {
+        return 0;
+    }
+
+    return coinsHelper(n, count+25) + coinsHelper(n, count+10) + coinsHelper(n, count+5)  + coinsHelper(n, count+1);
 }
 ```
