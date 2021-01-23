@@ -173,7 +173,6 @@ function towersOfHanoi(towerA, towerB, towerC, N, moves, currentMove) {
         return [towerA, towerB, towerC]; // something
     }
 
-    console.log(towerA, towerB, towerC, currentMove);
     
     let newTowerA = [...towerA];
     let newTowerB = [...towerB];
@@ -222,8 +221,9 @@ function towersOfHanoi(towerA, towerB, towerC, N, moves, currentMove) {
 
     let newMoves = [...moves.slice(index), ...moves.slice(0, index)];
 
+    console.log(newMoves);
     for(let i = 0; i < moves.length; i++) {
-        result = towersOfHanoi(newTowerA, newTowerB, newTowerC, N, moves, newMoves[i]);
+        result = towersOfHanoi(newTowerA, newTowerB, newTowerC, N, newMoves, newMoves[i]);
     }
     return result;
 }
@@ -247,6 +247,7 @@ function moveDisk(tower1, tower2) {
     return [newTower1, newTower2];
 }
 ```
+    console.log(towerA, towerB, towerC, currentMove);
 
 ### 8.7 Permutations without Dups
 > Write a method to compute all permutations of a string of unique characters.
@@ -293,9 +294,31 @@ function insertCharInEachPos(c, str) {
 
 What does a string without unique characters imply?
 
-### 8.9 Parens
+### 8.9 Parens - Incomplete
 > Implement an algorithm to print all valid (e.g., properly opened and closed) combinations of n pairs of parentheses.
 - Sample output: ((())), (()()), (())(), ()(()), ()()()
+
+for N = 2
+(())
+()()
+
+for N = 4
+(((())))
+((()()))
+((())())
+((()))()
+(()(()))
+()((()))
+(()())()
+(())()()
+()(())()
+()()()()
+
+Algorithm:
+- Start with completely nested parentheses
+- Take middle parentheses and move out left
+- Then move out right, until it is not nested inside another parentheses
+- Repeat for the other nested parentheses
 
 What is a valid parenthesis pair?
 - p = ( ) or ''
@@ -306,6 +329,85 @@ What is a valid parenthesis pair?
 
 ```
 function parens(N) {
+    
+    let s = '';
 
+    for(let i = 0; i < N; i++) {
+        s += '(';
+    }
+    for(let i = 0; i < N; i++) {
+        s += ')';
+    }
+
+    console.log(s);
+    parensHelper(N, s);
+}
+
+function parensHelper(N, s) {
+    // Base case: s is a string of N unnested parentheses
+    let baseCase = '';
+    for(let i = 0; i < N; i++) baseCase += '()';
+    if(baseCase === s) {
+        console.log(s);
+        return;
+    }
+
+}
+```
+
+### 8.10 Paint Fill
+> Implement the "paint fill" function that one might see on many image editing programs. That is, given a screen (represented by a two-dimensional array of colors), a point, and a new color, fill in the surrounding area until the color changes from the original color.
+
+```
+function init() {
+    // Let's represent a color as a number from 0-255
+
+    const width = 100;
+    const height = 100;
+
+    let image = new Array(width);
+
+    for(let i = 0; i < height; i++) {
+        image[i] = new Array(size);
+    }
+
+    const colorRange = 256;
+
+    for(let i = 0; i < 100; i++) {
+        for(let j = 0; j < 100; j++) {
+            image[i][j] = getRandomInt(colorRange);
+        }
+    }
+
+    const color = 10;
+    let point = [Math.floor(width/2), Math.floor(height/2)];
+
+    console.log(paintFill(image, point, color));
+}
+
+function paintFill(image, point, color) {
+    // Base case
+
+    if(point[0] < 0 || point [1] < 0 ||  point[0] >= image.length || point [1] >= image[0].length) {
+        return;
+    }
+
+    let x = point[0];
+    let y = point[1];
+
+    if(image[x][y] !== color) {
+        image[x][y] = color;
+    }
+
+    let newPoints = [[x,y-1], [x-1, y], [x+1, y], [x, y+1]];
+    
+    for(let i = 0; i < newPoints.length; i++) {
+        paintFill(image, newPoints[i], color);
+    }
+}
+// [Source](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random)
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
 }
 ```
