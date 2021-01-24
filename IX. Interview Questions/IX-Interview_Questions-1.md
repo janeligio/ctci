@@ -3,10 +3,9 @@
 ### 1.1 Is Unique
 > Implement an algorithm to determine if a string has all unique characters. What if you cannot use additional data structures?
 
-JavaScript:
 
-Using Set data structure
-
+- Using Set data structure:
+JavaScript
 ```
 const isUnique = str => {
 	const uniqStr = new Set(str);
@@ -14,8 +13,39 @@ const isUnique = str => {
 }
 ```
 
-**1.2 Check Permutation**
-- Given two strings, write a method to decide if one is a permutation of the other.
+- Without cheating:
+  - Algorithm:
+      - Insert all characters into hash table
+      - If you encounter a collision, the string does not have unique characters
+  - O(n)
+
+- What if you can't use additional data structures?
+  - Sort string (using in-place algorithm)
+  - Loop through string
+  - O(n log n)
+
+```
+function isUnique(s) {
+  let sorted = s.sort();
+
+  let current = sorted[0];
+
+  for(let i = 0; i < sorted.length; i++) {
+    if(i < sorted.length-1) {
+      if(current === sorted[i+1]) {
+        return false;
+      } else {
+        current = sorted[i+1]
+      }
+    }
+  }
+
+  return true;
+}
+```
+
+### 1.2 Check Permutation
+> Given two strings, write a method to decide if one is a permutation of the other.
 
 ```
 string a,b
@@ -26,9 +56,8 @@ sortedB = mergesort(b)	// O(B log B)
 return sortedA == sortedB
 ```
 
-**1.3 URLify - Incomplete** 
-
-- Write a method to replace all spaces in a string with '%20'. You may assume that the string has sufficient space at the end to hold the additional characters, and that you are given the "true" length of the string. (Note: If implementing in Java, please use a character array so that you can perform this operation in place.)
+> 1.3 URLify - Incomplete
+> Write a method to replace all spaces in a string with '%20'. You may assume that the string has sufficient space at the end to hold the additional characters, and that you are given the "true" length of the string. (Note: If implementing in Java, please use a character array so that you can perform this operation in place.)
 
 Input: const str = 'Mr John Smith      ', 13
 Output: 'Mr%20John%20Smith'
@@ -43,10 +72,10 @@ const URLify = str => {
 		i--;
 	}
 
-	emptySpaces /= 3; // Because an empty space is equivalentn to '%20'
+	emptySpaces /= 3; // Because an empty space is equivalent to '%20'
 
 	for(let i = 0; i < emptySpaces; i++) {
-		// Find index of white space
+		// Find index of next white space
 		let index = 0;
 		let j = 0;
 		while(str[j] !== ' ') {
@@ -67,11 +96,15 @@ const URLify = str => {
 }
 ```
 
-**1.4 Palindrome Permutation**
+### 1.4 Palindrome Permutation
+> Given a string, write a function to check if it is a permutation of a palindrome. A palindrome is a word or phrase that is the same forwards and backwards. A permutation is a rearrangement of letters. The palindrome does not need to be limited to just dictionary words.
 
-- Given a string, write a function to check if it is a permutation of a palindrome. A palindrome is a word or phrase that is the same forwards and backwards. A permutation is a rearrangement of letters. The palindrome does not need to be limited to just dictionary words.
-
-Algorithm: Sort the string. Count occurrences of each character. % by 2 and if > 0 add to a counter. If counter > 1, it is not a palindrome permutation.
+Algorithm: 
+- Sort the string. 
+- Count occurrences of each character. 
+- % by 2 and 
+  - if > 0 add to a counter. 
+  - If counter > 1, it is not a palindrome permutation.
 
 Reasoning: For each unique character in a palindrome, it either has a pair or it doesn't. If it doesn't have a pair, that means that character is in the middle of the string (number of characters in the string is odd).
 
@@ -89,7 +122,6 @@ Pseudocode:
 			count = 0;
 
 	return isOdd > 1;
-
 ```
 
 *Runtime: O(N log N)*
