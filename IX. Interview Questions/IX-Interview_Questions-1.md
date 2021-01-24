@@ -243,11 +243,10 @@ D E F -> I E B
 
 H I J    J F C
 
-Notes: I don't know if you can do this in place.
+Notes: I don't know if you can do this in place (I don't think so).
 
-**1.8 Zero Matrix**
-
-- Write an algorithm such that if an element in an MxN matrix is 0, its entire row and column are set to 0.
+### 1.8 Zero Matrix
+> Write an algorithm such that if an element in an MxN matrix is 0, its entire row and column are set to 0.
 
 In JavaScript:
 ```
@@ -295,15 +294,41 @@ Assumes matrix is mutable.
 
 **1.9 String Rotation - Incomplete**
 
-- Assume you have a method isSubstring which checks if one word is a substring of another. Given two strings, s1 and s2, write code to check if s2 is a rotation of s1 using only one call to isSubstringn (e.g., "waterbottle" is a rotation of "erbottlewat").
+- Assume you have a method isSubstring which checks if one word is a substring of another. Given two strings, s1 and s2, write code to check if s2 is a rotation of s1 using only one call to isSubstring (e.g., "waterbottle" is a rotation of "erbottlewat").
+
+
+Algorithm:
+- Find index of the first character in s1 in s2
+- Loop through
 
 In JavaScript:
 ```
-let isStringRotated = (str1, str2) => {
-  if(str1.length !== str2.length) return false;
+function isStringRotated(s1, s2) {
+  if(s1.length !== s2.length) return false;
 
+  let startIndex = s2.indexOf(s1[0]);
+  
+  if(startIndex < 0) return false;
 
+  let charsCounted = 0;
+  let i = 0;
+
+  let strA = '';
+  let strB = '';
+  
+  while(charsCounted < s1.length) {
+    strA += s1[i];
+    strB += s2[startIndex];
+
+    i++;
+
+    if(startIndex === s2.length-1)
+      startIndex = 0;
+    else
+      startIndex++;
+    charsCounted++;
+  }
+  return isSubstring(strA, strB);
 }
 ```
-
-*I have no idea how to do this*.
+*This is wrong.*
