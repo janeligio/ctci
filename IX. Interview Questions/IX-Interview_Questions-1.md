@@ -127,15 +127,12 @@ Pseudocode:
 *Runtime: O(N log N)*
 
 
-**1.5 One Away**
-
-- There are three types of edits that an be performed on strings: insert a character, remove a character, or replace a character. Given two strings, write a function to check if they are one edit (or zero edits) away.
+### 1.5 One Away
+> There are three types of edits that an be performed on strings: insert a character, remove a character, or replace a character. Given two strings, write a function to check if they are one edit (or zero edits) away.
 
 Method: Check all three instances
 - Insert a character is true if: there exists a character in the string that, if removed, would make the two strings equal.
-
 - Remove a character is true if: same as insert except you can switch parameters.
-
 - Replace a character is true if: there exists a character x in string A and a character y in string B that, if removed, would make string A and B equal.
 
 In JavaScript:
@@ -153,8 +150,10 @@ let oneAway = (stringA, stringB) => {
 }
 
 let insertCharacterTrue = (stringA, stringB) => {
-  if(stringA.slice(1,stringA.length-1) === stringB) return true;
+  if(stringA.slice(1,stringA.length) === stringB) return true;
 
+  // Loop through stringA and if you encounter a character that is not equal to the same character in string B
+  // then check if the stringA equals stringB if that one character is removed from stringA
   for(let i = 0; i < stringA.length - 1; i++)
     if(stringA[i] !== stringB[i])
       let str = stringA.splice(0,i-1) + stringA.splice(i+1,stringA.length-1);
@@ -172,9 +171,8 @@ let replaceCharacterTrue = (stringA, stringB) => {
 }
 ```
 
-**1.6 String Compression**
-
-- Implement a method to perform basic string compression using the counts of repeated characters. For example, the string aabcccccaaa would become a2b1c5a3. If the "compressed" string would not become smaller than the original string, your method should return the original string. You can assume the string has only uppercase and lowercase letters (a-z).
+### 1.6 String Compression
+> Implement a method to perform basic string compression using the counts of repeated characters. For example, the string aabcccccaaa would become a2b1c5a3. If the "compressed" string would not become smaller than the original string, your method should return the original string. You can assume the string has only uppercase and lowercase letters (a-z).
 
 In JavaScript:
 
@@ -187,21 +185,22 @@ let compressString = str => {
     if(i === str.length-1) {  // Case if at end of array
       compressedString += str[i] + count;
     } else if(str[i] === str[i+1]) {
-      count++
+      count++;
     } else {
       compressedString += str[i] + count;
       count = 1;
     } 
   }
 
-  if(str.length === compressedString.length) return str;
-  else return compressedString;
+  if(str.length === compressedString.length) 
+    return str;
+  else 
+    return compressedString;
 }
 ```
 
-**1.7 Rotate Matrix**
-
-- Given an image represented by an NxN matrix, where each pixel in the image is 4 bytes, write a method to rotate the image by 90 degrees. Can you do this in place?
+### 1.7 Rotate Matrix
+> Given an image represented by an NxN matrix, where each pixel in the image is 4 bytes, write a method to rotate the image by 90 degrees. Can you do this in place?
 
 4x4 Matrix
 
@@ -216,6 +215,7 @@ Top row:
 1,1 -> 2,1
 2,1 -> 2,2
 3,1 -> 2,3
+
 In JavaScript:
 ```
 let rotateMatrix = matrix => {
