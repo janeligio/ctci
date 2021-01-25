@@ -1,9 +1,8 @@
 # IX. Interview Questions - Chapter 2 | Linked Lists
 
 ### 2.1 Remove Dups
-
-- Write code to remove duplicates from an unsorted linked list.
-- FOLLOW UP: How would you solve this problem if a temporary buffer is not allowed?
+> Write code to remove duplicates from an unsorted linked list.
+> FOLLOW UP: How would you solve this problem if a temporary buffer is not allowed?
 
 A -> D -> C -> T -> T -> K
 
@@ -38,9 +37,10 @@ const removeDups = head => {
 }
 ```
 
-### 2.2 Return Kth to Last
+If you are not able to use a buffer, you would have to iterate through the linked list at each node making it an O(n^2) algorithm.
 
-- Implement an algorithm to find the kth to last element of a singly inked list.
+### 2.2 Return Kth to Last
+> Implement an algorithm to find the kth to last element of a singly inked list.
 
 JavaScript:
 ```
@@ -65,14 +65,12 @@ const returnKth = (head, k) => {
 ```
 
 ### 2.3 Delete Middle Node
-
-- Implement an algorithm to delete a node in the middle (i.e., any node but the first and last node, not necessarily the exact middle) of a singly linked list, given only access to that node.
+> Implement an algorithm to delete a node in the middle (i.e., any node but the first and last node, not necessarily the exact middle) of a singly linked list, given only access to that node.
 
 JavaScript:
 ```
 const deleteMiddleNode = node => {
   let val = node.val;
-  let nextVal = node.next.val;
 
   let curr = node;
   while(curr.next !== null) {
@@ -82,7 +80,7 @@ const deleteMiddleNode = node => {
       curr.next.val = curr.next.next.val;
       curr.next.next = null;
     } else {
-      curr.val = nextVal;
+      curr.val = node.next.val;
       curr = curr.next;
     }
   }
@@ -90,8 +88,7 @@ const deleteMiddleNode = node => {
 ```
 
 ### 2.4 Partition
-
-- Write code to partition a linked list around a value x, such that all nodes less than x come before all nodes greater than or equal to x. If x is contained within the list, the values of x only need to be after the elements less than x (see below). The partition element x can appear anywhere in "right partition"; it does not need to appear between the left and right partitions.
+> Write code to partition a linked list around a value x, such that all nodes less than x come before all nodes greater than or equal to x. If x is contained within the list, the values of x only need to be after the elements less than x (see below). The partition element x can appear anywhere in "right partition"; it does not need to appear between the left and right partitions.
 
 JavaScript:
 ```
@@ -133,8 +130,7 @@ const partition = (head, partition) => {
 ```
 
 ### 3.5 Sum Lists
-
-- You have two numbers represented by a linked list, where each node contains a single digit. The digits are stored in *reverse* order, such that the 1's digit is at the head of the list. Write a function that adds the two numbers and returns the sum as a linked list.
+> You have two numbers represented by a linked list, where each node contains a single digit. The digits are stored in *reverse* order, such that the 1's digit is at the head of the list. Write a function that adds the two numbers and returns the sum as a linked list.
 
 JavaScript:
 ```
@@ -159,8 +155,7 @@ const convert = head => {
 ```
 
 ### 2.6 Palindrome
-
-- Implement a function to check if a linked list is a palindrome.
+> Implement a function to check if a linked list is a palindrome.
 
 Algorithm: Use stack and compare to original list.
 
@@ -189,13 +184,11 @@ const palindrome = head => {
 ```
 
 ### 2.7 Intersection - Incomplete
-
-- Given two (singly) linked lists, determine if the two lists intersect. Return the intersecting node. Note that the intersection is defiend based on reference, not value. That is, if the kth node of the first linked list is the exact same node (by reference) as the jth node of the second linked list, then they are intersecting.
+> Given two (singly) linked lists, determine if the two lists intersect. Return the intersecting node. Note that the intersection is defined based on reference, not value. That is, if the kth node of the first linked list is the exact same node (by reference) as the jth node of the second linked list, then they are intersecting.
 
 ### 2.8 Loop Detection
-
-- Given a circular linked list, implement an algorithm that returns the node at the beginning of the loop.
-- DEFINITION Circular linked list: A (corrupt) linked list in which a node's next pointer points to an earlier node, so as to make a loop in the linked list
+> Given a circular linked list, implement an algorithm that returns the node at the beginning of the loop.
+> DEFINITION Circular linked list: A (corrupt) linked list in which a node's next pointer points to an earlier node, so as to make a loop in the linked list
 - EXAMPLE
 - Input:  A -> B -> C -> d -> E -> C [the same C as earlier]
 - Output: C
