@@ -19,18 +19,118 @@ Functions:
 - `isEmpty()`
 
 ### 3.1 Three in One - Incomplete
-- Describe how you could use a single array to implement three stacks.
+> Describe how you could use a single array to implement three stacks.
 
-Answer: 
+What is a stack?
+- a data structure where the first element that is inserted is the last one removed
+- also the last element inserted is the first removed
 
-### Stack Min
-- How would you design a stack which, in addition to push and pop, has a function `min` which returns the minimum element? `Push`, `pop` and `min` should all operate in O(1) time.
+How do we implement one stack with a single array?
+- use one pointer to keep track of the top of the stack
+- each time you insert you update the pointer (increment)
+- each time you remove, you update the pointer (decrement)
+
+```
+class ArrayStack {
+  constructor(n) {
+    this.stack = new Array(n);
+    this.top = null;
+  }
+  push(item) {
+    if(this.top === null) {
+      this.top = 0;
+      this.stack[this.top] = item;
+    } else {
+      this.stack[this.top+1] = item;
+      this.top = this.top + 1;
+    }
+  }
+  pop() {
+    if(this.top === null) {
+      console.log('error');
+    } else {
+      let ret = this.stack[top];
+      this.top = this.top - 1;
+      return ret;
+    }
+  }
+
+  peek() {
+    return this.stack[this.top];
+  }
+}
+```
+
+How do we achieve this with three stacks in one array?
+- Same concept except have three pointers
+
+```
+class ArrayStackOfThree {
+  constructor(n) {
+    this.stack = new Array(n);
+    this.topA = null;
+    this.topB = null;
+    this.topC = null;
+  }
+
+  push(stackN, item) {
+    let stack = `top${stackN}`;
+
+    if(this[stack] === null) {
+      switch(stack) {
+        case 'topA':
+          this[stack] = 0;
+          this.stack[this[stack]] = item;
+          break;
+        case 'topB':
+          this[stack] = 1;
+          this.stack[this[stack]] = item;
+          break;
+        case 'topC':
+          this[stack] = 2;
+          this.stack[this[stack]] = item;
+          break;
+      }
+    } else {
+      this.stack[this[stack]] = item;
+      this.top = this.top + 3;
+    }
+  }
+
+  pop(stackN) {
+    let stack = `top${stackN}`;
+
+    if(this[stack] === null) {
+      console.log('error');
+    } else {
+      let ret = this.stack[this[stack]];
+      this.top = this.top - 3;
+
+      if(this[stack] < 4) {
+        this[stack] = null;
+      }
+      
+      return ret;
+    }
+
+  }
+
+  peek(stackN) {
+    let stack = `top${stackN}`;
+
+    return this.stack[this[stack]];
+  }
+}
+```
+
+### 3.2 Stack Min
+> How would you design a stack which, in addition to push and pop, has a function `min` which returns the minimum element? `Push`, `pop` and `min` should all operate in O(1) time.
 
 Answer: 
 - You hold the min in a variable and update min every time push is called. However, how do you update min when you pop an item? You can maybe include a variable in each item that contains the next largest item. You would do this when you push an item.
 - Another answer based on hint #27: The obvious way is to calculate min every time you push an item. If popping the min element, recalculate by looping through stack. This uses O(n) space-time complexity. However, you can derive that the amortized runtime would still be O(1) from looking at how Java's ArrayList class works. Doubling an array is an O(n) operation, but is amortized to be O(1) as n grows.
 
-### Stack of Plates
+### 3.3 Stack of Plates
 - Imagine a (literal) stack of plates. If the stack gets too high, it might topple. Therefore, in real life, we would likely start a new stack when the previous stacks exceeds some threshold. Implement a data structure SetOfStacks that mimics this. SetOfStacks should be composed of several stacks and should create a new stack once the previous one exceeds capacity. SetOfStacks.push() and SetOfStacks.pop() should behave identically to a single stack (that is, pop() should return the same values as it would if there were just a single stack).
 - FOLLOW UP: Implement a function popAt (int index) which performs a pop operation on a specific sub-stack.
 
