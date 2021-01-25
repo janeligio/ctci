@@ -131,8 +131,8 @@ Answer:
 - Another answer based on hint #27: The obvious way is to calculate min every time you push an item. If popping the min element, recalculate by looping through stack. This uses O(n) space-time complexity. However, you can derive that the amortized runtime would still be O(1) from looking at how Java's ArrayList class works. Doubling an array is an O(n) operation, but is amortized to be O(1) as n grows.
 
 ### 3.3 Stack of Plates
-- Imagine a (literal) stack of plates. If the stack gets too high, it might topple. Therefore, in real life, we would likely start a new stack when the previous stacks exceeds some threshold. Implement a data structure SetOfStacks that mimics this. SetOfStacks should be composed of several stacks and should create a new stack once the previous one exceeds capacity. SetOfStacks.push() and SetOfStacks.pop() should behave identically to a single stack (that is, pop() should return the same values as it would if there were just a single stack).
-- FOLLOW UP: Implement a function popAt (int index) which performs a pop operation on a specific sub-stack.
+> Imagine a (literal) stack of plates. If the stack gets too high, it might topple. Therefore, in real life, we would likely start a new stack when the previous stacks exceeds some threshold. Implement a data structure SetOfStacks that mimics this. SetOfStacks should be composed of several stacks and should create a new stack once the previous one exceeds capacity. SetOfStacks.push() and SetOfStacks.pop() should behave identically to a single stack (that is, pop() should return the same values as it would if there were just a single stack).
+> FOLLOW UP: Implement a function popAt (int index) which performs a pop operation on a specific sub-stack.
 
 Design:
 ```
@@ -158,7 +158,7 @@ Design:
 ```
 
 ### 3.4 Queue via Stacks
-- Implement a MyQueue class which implements a queue using two stacks
+> Implement a MyQueue class which implements a queue using two stacks
 
 Design:
 ```
