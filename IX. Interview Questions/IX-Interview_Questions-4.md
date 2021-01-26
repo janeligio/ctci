@@ -505,7 +505,7 @@ function buildOrder(projects, dependencies) {
 
 ```
 
-### 4.8 First Common Ancestor - Incomplete
+### 4.8 First Common Ancestor
 - Design an algorithm and write code to find the first common ancestor of two nodes in a binary tree. Avoid storing additional nodes in a data structure. NOTE: This is not necessarily a binary search tree.
 
 Brute-Force Algorithm:
@@ -524,7 +524,7 @@ Another explanation:
 dfs(root, searchFor) {
     if(root === null) return;
     if(root === searchFor) {
-        return
+        return true;
     } else {
         dfs(root.left, searchFor);
         dfs(root.right, searchFor);
@@ -532,7 +532,16 @@ dfs(root, searchFor) {
 }
 
 firstCommonAncestor(root, nodeA, nodeB) {
+    let isLeft = dfs(root.left, nodeA);
+    let isRight = dfs(root.right, nodeA);
+
+    if(isLeft && isRight)
+        return root;
     
+    if(isLeft && !isRight)
+        firstCommonAncestor(root.left, nodeA, nodeB)
+    else if(isRight && !isLeft)
+        firstCommonAncestor(root.right, nodeA, nodeB)
 }
 ```
 
