@@ -169,9 +169,9 @@ bfs(Node root) {
 
 
 ### 4.1 Route Between Nodes
-- Given a directed graph, design an algorithm to find out whether there is a route between two nodes.
+> Given a directed graph, design an algorithm to find out whether there is a route between two nodes.
 
-Answer:
+Algorithm:
 - implement DFS/BFS to find a specific node
 - run DFS/BFS on both nodes and return true if both searches are true
 
@@ -198,12 +198,12 @@ routeBetweenNodes(Node n, Node m) {
 ```
 
 ### 4.2 Minimal Tree
-- Given a sorted (increasing order) array with unique integer elements, write an algorithm to create a binary search tree with minimal height
+> Given a sorted (increasing order) array with unique integer elements, write an algorithm to create a binary search tree with minimal height.
 
 
 Algorithm: This is a pre-order traversal of the tree except we have to traverse it with an array.
 
-Middle of two indices x,y of an array = ceil( (y-x)/2)
+Middle of two indices x,y of an array = `ceil((y-x)/2)`
 
 ```
 minTree(list) {
@@ -229,7 +229,7 @@ minTreeHelper(list, start, end, node) {
 ```
 
 ### 4.3 List of Depths
-- Given a binary tree, design an algorithm which creates a linked list of all the nodes at each depth (e.,g., if you have a tree with depth D, you'll have D linked lists).
+> Given a binary tree, design an algorithm which creates a linked list of all the nodes at each depth (e.,g., if you have a tree with depth D, you'll have D linked lists).
 
 Method 1:
 - Store linked lists in an array (an expanding one like an ArrayList)
