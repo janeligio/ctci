@@ -418,8 +418,8 @@ function validateBST(root) {
 }
 ```
 
-### 4.6 Successor - Incomplete
-- Write an algorithm to find the "next" node (i.e., in-order successor) of a given node in a binary search tree. You may assume that each node has a link to its parent.
+### 4.6 Successor
+> Write an algorithm to find the "next" node (i.e., in-order successor) of a given node in a binary search tree. You may assume that each node has a link to its parent.
 
 Algorithm:
 - The successor of a node is either going to be 
@@ -451,7 +451,7 @@ successor(node) {
 ```
 
 ### 4.7 Build Order
-- You are given a list of projects and a list of dependencies (which is a list of pairs of projects, where the second project is dependent on the first project). All of a project's dependencies must be built before the project is. Find a build order that will allow the projects to be built. If there is no valid build order, return an error.
+> You are given a list of projects and a list of dependencies (which is a list of pairs of projects, where the second project is dependent on the first project). All of a project's dependencies must be built before the project is. Find a build order that will allow the projects to be built. If there is no valid build order, return an error.
 
 ```
 class Project {
@@ -506,7 +506,7 @@ function buildOrder(projects, dependencies) {
 ```
 
 ### 4.8 First Common Ancestor
-- Design an algorithm and write code to find the first common ancestor of two nodes in a binary tree. Avoid storing additional nodes in a data structure. NOTE: This is not necessarily a binary search tree.
+> Design an algorithm and write code to find the first common ancestor of two nodes in a binary tree. Avoid storing additional nodes in a data structure. NOTE: This is not necessarily a binary search tree.
 
 Brute-Force Algorithm:
 1. Start at root and dfs for both nodes (should return true) so maybe skip this part
@@ -546,7 +546,7 @@ firstCommonAncestor(root, nodeA, nodeB) {
 ```
 
 ### 4.9 BST Sequences
-- A binary search tree was created by traversing through an array from left to right and inserting each element. Given a binary search tree with distinct element, print all possible arrays that could have led to this tree.
+> A binary search tree was created by traversing through an array from left to right and inserting each element. Given a binary search tree with distinct element, print all possible arrays that could have led to this tree.
 
 Algorithm:
 1. The root is always going to be the first value in the array
@@ -584,16 +584,15 @@ BSTsequences(node) {
 
 Brute-Force Algorithm:
 1. Create function to check if two trees are equal (in value)
-2. Traverse through T1 tree running function on each subtree
+2. Find all nodes in T1 equal to T2. root
+3. Check if those subtrees are equal
 
-```
-checkIdentical(treeA, treeB) {
-
-}
-```
 
 ### 4.11 Random Node - Incomplete
 - You are implementing a binary tree class from scratch which, in addition to insert, find, and delete, has a method getRandomNode() which returns a random node from the tree. All nodes should be equally likely to be chosen. Design and implement an algorithm for getRandomNode, and explain how you would implement the rest of the methods.
+
+1. Keep track of the number of nodes in the binary tree
+    
 
 ### 4.12 Paths with Sum
 - You are given a binary tree in which each node contains an integer value (which might be positive or negative). Design an algorithm to count the number of paths that sum to a given value. The path does not need to start or end at the root or a leaf, but it must go downwards (traveling only from parent nodes to child nodes).
@@ -605,3 +604,19 @@ Algorithm:
     3. For each recursion, sum the value from the root node and the node it traverses.
     4. Return the node if the sum === the given integer value or if sum > the given integer value.
 2. Run modified DFS on all nodes
+
+```
+function pathsWithSum(root, sum) {
+    return dfs(root, sum, 0);
+}
+
+functions dfs(root, sum, total) {
+    if(root === null) return root.val;
+    if(total > sum) return 0;
+    if(sum === total) {
+        return 1;
+    }
+
+    return dfs(root.left, sum, total + root.val) + dfs(root.right, sum total + root.val);
+}
+```
