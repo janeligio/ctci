@@ -18,7 +18,7 @@ Functions:
 - `peek()`
 - `isEmpty()`
 
-### 3.1 Three in One - Incomplete
+### 3.1 Three in One
 > Describe how you could use a single array to implement three stacks.
 
 What is a stack?
@@ -160,6 +160,10 @@ Design:
 ### 3.4 Queue via Stacks
 > Implement a MyQueue class which implements a queue using two stacks
 
+What is the definition of a queue?
+- the first item added to the queue is the first one removed
+- the last item added to the queue is the last one removed
+
 Design:
 ```
 - Has two variables: stack1, stack2
@@ -177,10 +181,9 @@ Design:
 ```
 
 ### 3.5 Sort Stack
-- Write a program to sort a stack such that the smallest items are on the top. You can use an additional temporary stack, but you may not copy the elements into any other data structure (such as an array). The stack supports the following operations: push, pop, peek, and isEmpty.
+> Write a program to sort a stack such that the smallest items are on the top. You can use an additional temporary stack, but you may not copy the elements into any other data structure (such as an array). The stack supports the following operations: push, pop, peek, and isEmpty.
 
 Design:
-```
 Most of the design is going to involve pushing:
 - push(item)
   - if empty, push item
@@ -189,7 +192,7 @@ Most of the design is going to involve pushing:
     - else push item to top of stack
 
 Implementation:
-
+```
 push(item) {
   let new = new StackNode(item);
   if(isEmpty()) top = new;
@@ -217,9 +220,89 @@ push(item) {
 ```
 
 ### 3.6 Animal Shelter - Incomplete
-- An animal shelter, which holds only dogs and cats, operates on a strictly "first in, first out" basis. 
-- People must adopt either the "oldest" (based on arrival time) of all animals at the shelter, or they can select whether they would prefer a dog or a cat (and will receive the oldest animal of that type). 
-- They cannot select which specific animal they would like. 
-- Create the data structures to maintain this system and implement operations such as enqueue, dequeueAny, dequeueDog, and dequeueCat. 
-- You may use the built-in LinkedList data structure.
+> An animal shelter, which holds only dogs and cats, operates on a strictly "first in, first out" basis. 
+> People must adopt either the "oldest" (based on arrival time) of all animals at the shelter, or they can select whether they would prefer a dog or a cat (and will receive the oldest animal of that type). 
+> They cannot select which specific animal they would like. 
+> Create the data structures to maintain this system and implement operations such as enqueue, dequeueAny, dequeueDog, and dequeueCat. 
+> You may use the built-in LinkedList data structure.
 
+
+```
+class AnimalShelter {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+  }
+
+  enqueue(animal) {
+    if(this.length === 0) {
+      this.length = this.length + 1;
+      this.head = new Animal(animal);
+      this.tail = this.head;
+      this.head.next = this.tail;
+    } else {
+      this.length = this.length + 1;
+      this.tail.next = new Animal(animal);
+      this.tail = this.tail.next;
+      this.tail.next = null;
+    }
+  }
+
+  dequeueAny() {
+    if(this.length === 0) {
+      console.log('No animals');
+    } else {
+      let animal = new Animal(this.head.type);
+      this.head = this.head.next;
+      this.length = this.length - 1;
+      return animal;
+    }
+  }
+
+  dequeueDog() {
+    if(this.length === 0) {
+      console.log('No animals');
+    } else {
+      if(this.head.type === 'Dog') {
+        return deQueueAny();
+      } else {
+        let curr = this.head;
+        while(curr.next.type !== 'Dog') {
+          curr = curr.next;
+        }
+        let animal = new Animal(curr.next.type);
+        curr.next = curr.next.next;
+        return animal;
+      }
+    }
+  }
+
+  dequeueCat() {
+    if(this.length === 0) {
+      console.log('No animals');
+    } else {
+      if(this.head.type === 'Cat') {
+        return deQueueAny();
+      } else {
+        let curr = this.head;
+        while(curr.next.type !== 'Cat') {
+          curr = curr.next;
+        }
+        let animal = new Animal(curr.next.type);
+        curr.next = curr.next.next;
+        return animal;
+      }
+    }
+  }
+}
+
+class Animal {
+  constructor(animalType) {
+    if(animalType === 'Dog')
+      this.type = 'dog';
+    if(animalType === 'Cat')
+      this.type = 'cat';
+  }
+}
+```
