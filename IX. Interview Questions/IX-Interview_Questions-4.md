@@ -323,7 +323,7 @@ listOfDepths(root) {
 > Implement a function to check if a binary tree is balanced. For the purposes of this question, a balanced tree is defined to be a tree such that the heights of the two subtrees of any node never differs by more than one.
 
 Algorithm:
-- A tree's height is a  defined recursively the max height of its children and the height a node is the the height of a parent's + 1
+- A tree's height is defined recursively as the max height of its children and the height of a node is the the height of a parent's + 1
 
 ```
 checkBalanced(root) {
@@ -352,8 +352,18 @@ helper(node, height) {
 }
 ```
 
+```
+function checkBalanced(root) {
+    if(root === null) {
+        return 1;
+    }
+
+    return abs((checkBalanced(root.left) + 1), (checkBalanced(root.right) + 1)) < 2;
+}
+```
+
 ### 4.5 Validate BST
-- Implement a function to check if a binary tree is a binary search tree
+> Implement a function to check if a binary tree is a binary search tree
 
 Algorithm:
 - In-order traverse through potential BST
@@ -387,6 +397,27 @@ validateBST(root) {
 }
 ```
 
+Optimized version:
+- Do any type of traversal
+- During the traversal, check if the values are what they would be if it was a BST. That is, root < root. right && root > root.left
+
+```
+function validateBST(root) {
+    if(root === null) {
+        return root;
+    }
+
+    let middle = root;
+    let left = validateBST(root.left.val);
+    left right = validateBST(root.right.val);
+
+    if(!(middle < right) || !(middle > left)) {
+        return false;
+    }
+
+}
+```
+
 ### 4.6 Successor - Incomplete
 - Write an algorithm to find the "next" node (i.e., in-order successor) of a given node in a binary search tree. You may assume that each node has a link to its parent.
 
@@ -404,7 +435,7 @@ min(node) {
         return node;
     }
     while(node !== null) {
-        inOrderTraversal(node.left);
+        min(node.left);
     }
 }
 ```
@@ -422,6 +453,57 @@ successor(node) {
 ### 4.7 Build Order
 - You are given a list of projects and a list of dependencies (which is a list of pairs of projects, where the second project is dependent on the first project). All of a project's dependencies must be built before the project is. Find a build order that will allow the projects to be built. If there is no valid build order, return an error.
 
+```
+class Project {
+    constructor(project, parents, children) {
+        this.project = project;
+        this.parents = [...parents];
+        this.children = [...children];
+    }
+}
+
+function buildOrder(projects, dependencies) {
+    let projectNodes = [];
+
+    for(let i = 0; i < projects.length; i++) {
+        let a = projects[i];
+        let parents = [];
+        let children = [];
+        for(let j= 0; j < dependencies.length; j++) {
+            if(dependencies[i][0] === a) {
+                children.push(dependencies[i][1]);
+            }
+            if(dependencies[i][1] === a) {
+                parents.push(dependencies[i][0]);
+            }
+        }
+
+        projectNodes.push(new Project(a, parents, children));
+    }
+
+    let buildOrder = [];
+
+    for(let i = 0; i < projectNodes.length; i++) {
+        if(projectNodes[i].parents.length === 0) {
+            buildOrder.push(projectNodes[i].project)
+        }
+    }
+
+    let i = 0;
+    while(buildOrder.length < projects.length) {
+        let children = buildOrder[i].children;
+        if(children.length > 0) {
+            for(let child in children) {
+                if(buildOrder.indexOf(child.project) > -1)
+                    buildOrder.push(projectNodes[projectNodes.indexOf(child.project)])
+            }
+        }
+        i++;
+    }
+}
+
+
+```
 
 ### 4.8 First Common Ancestor - Incomplete
 - Design an algorithm and write code to find the first common ancestor of two nodes in a binary tree. Avoid storing additional nodes in a data structure. NOTE: This is not necessarily a binary search tree.
