@@ -138,15 +138,22 @@ function recursiveMultiply(x, y) {
 }
 ```
 A little more optimized:
+
+If y is even, you can double (left-shift) x and halve y (right-shift).
+If y is odd, you can add x to the sum.
 ```
 function recursiveMultiply(x, y) {
+    recursiveMultiplyHelper(x, y, x);
+}
+
+function recursiveMultiplyHelper(x, y) {
     if(y === 0) return 0;
-    if(y === 1) return x;
-    return recursiveMultiplyHelper((x << 1), (y-2));
+    if(y % 2 !== 0) return x + recursiveMultiplyHelper(x, y-1);
+    return x << 2 + recursiveMultiplyHelper(x, (y>>2));
 }
 ```
 
-### 8.6 Towers of Hanoi
+### 8.6 Towers of Hanoi - Incorrect
 > In the classic problem of the Towers of Hanoi, you have 3 towers and N disks of different sizes which can slide onto any tower. The puzzle starts with disks sorted in ascending order of size from top to bottom (i.e., each disk sits on top of an even larger one). You have the following constraints:
 1. Only one disk can be moved at a time.
 2. A disk is slid off the top of one tower onto another tower.
@@ -247,7 +254,233 @@ function moveDisk(tower1, tower2) {
     return [newTower1, newTower2];
 }
 ```
-    console.log(towerA, towerB, towerC, currentMove);
+
+Attempt #1 in Java:
+```
+	static int[][] towersOfHanoi(int[][] towers) {
+		if(checkTowers(towers)) {
+			System.out.println("Found solution");
+			return towers;
+		}
+		
+		int towerA = 0;
+		int towerB = 1;
+		int towerC = 2;
+		
+		int[][] possibleMoves = 
+				{{towerA, towerB}, {towerA, towerC},
+				 {towerB, towerA}, {towerB, towerC},
+				 {towerC, towerA}, {towerC, towerA}};
+		
+		ArrayList<int[]> validMoves = new ArrayList<int[]>();
+		
+		for(int i=0; i<possibleMoves.length; i++) {
+			int tower1 = possibleMoves[i][0];
+			int tower2 = possibleMoves[i][1];
+			if(checkValid(tower1, tower2, towers)) {
+				int[] move = {tower1, tower2};
+				validMoves.add(move);
+			}
+		}
+		
+		for(int i=0; i<validMoves.size(); i++) {
+			int[] move = validMoves.get(i);
+			out.println("Move: "+move[0]+" "+move[1]);
+			printTowers(towers);
+			moveDisk(move[0], move[1], towers);
+			towersOfHanoi(towers);
+		}
+		
+		return towers;
+	}
+	
+	// Move disk from towerA to towerB
+	static void moveDisk(int towerA, int towerB, int[][] towers) {
+		int disk = removeTop(towerA, towers);
+		insertTop(towerB, disk, towers);
+	}
+	
+	static int removeTop(int tower, int[][] towers) {
+		int disk = 0;
+		for(int i = towers[tower].length-1; i >= 0; i--) {
+			if(towers[tower][i] > 0) {
+				disk = towers[tower][i];
+				towers[tower][i] = 0;
+			}
+		}
+		return disk;
+	}
+	
+	static void insertTop(int tower, int disk, int[][] towers) {		
+		if(getTop(tower, towers) == 0) {
+			towers[tower][0] = disk;
+		} else {
+			int index = -1;
+			int i = 0;
+			while(index < 0) {
+				if(towers[tower][i] == 0) {
+					index = i;
+				}
+				i++;
+			}
+			towers[tower][index] = disk;
+		}
+	}
+	
+	static boolean checkValid(int towerA, int towerB, int[][] towers) {
+		boolean valid = true;
+		
+		// There is no disk in Tower A
+		if(getTop(towerA, towers) == 0) valid = false;
+		if(getTop(towerA, towers) < getTop(towerB, towers)) valid = false;
+		
+		return valid;
+	}
+	
+	static int getTop(int tower, int towers[][]) {
+		int top = towers[tower][0];
+		
+		for(int i=0; i<towers[tower].length; i++) {
+			int current = towers[tower][i];
+			if(current < top && current != 0) top = towers[tower][i];
+		}
+		return top;
+	}
+	
+	static int[][] initTowers(int n) {
+		// n represents the size of the largest disk;
+		int[][] towers = new int[3][n];
+		
+		for(int i = 0; i < n; i++) {
+			towers[0][i] = n-i;
+		}
+		
+		return towers;
+	}
+	
+	static boolean checkTowers(int[][] towers) {
+		boolean result = true;
+		
+		for(int i=0; i<towers.length; i++) {
+			for(int j=0; j<towers[i].length; j++) {
+				if(i == 0 && towers[i][j] != 0) result = false;
+				if(i == 1 && towers[i][j] != 0) result = false;
+				if(i == 2) {
+					if(towers[i][j] != towers[i].length - j) {
+						result = false;
+					}
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	static void printTowers(int[][] towers) {
+		for(int j = 0; j < towers[0].length; j++) {
+			for(int i = 0; i < towers.length; i++) {
+				System.out.print("[ " + towers[i][j] + " ]");
+			}
+			System.out.println();
+		}
+	}
+```
+
+Attempt #2 in Java:
+```
+	static ArrayList<Stack<Integer>> towersOfHanoi(ArrayList<Stack<Integer>> towers) {
+		if(checkTowers(towers)) {
+			System.out.println("Found solution");
+			return towers;
+		}
+		
+		int towerA = 0;
+		int towerB = 1;
+		int towerC = 2;
+		
+		int[][] possibleMoves = 
+				{{towerA, towerB}, {towerA, towerC},
+				 {towerB, towerA}, {towerB, towerC},
+				 {towerC, towerA}, {towerC, towerA}};
+		
+		ArrayList<int[]> validMoves = new ArrayList<int[]>();
+		
+		for(int i=0; i<possibleMoves.length; i++) {
+			int tower1 = possibleMoves[i][0];
+			int tower2 = possibleMoves[i][1];
+			if(checkValid(tower1, tower2, towers)) {
+				int[] move = {tower1, tower2};
+				validMoves.add(move);
+			}
+		}
+		
+		for(int i=0; i<validMoves.size(); i++) {
+			int[] move = validMoves.get(i);
+			out.println("Move: "+move[0]+" "+move[1]);
+			moveDisk(move[0], move[1], towers);
+			printTowers(towers);
+			towersOfHanoi(towers);
+		}
+		
+		return towers;
+	}
+	
+	// Move disk from towerA to towerB
+	static void moveDisk(int towerA, int towerB, ArrayList<Stack<Integer>> towers) {
+		Integer disk = towers.get(towerA).pop();
+		towers.get(towerB).push(disk);
+	}
+	
+	static boolean checkValid(int towerA, int towerB, ArrayList<Stack<Integer>> towers) {
+		boolean valid = true;
+		
+		if(towers.get(towerA).empty()) valid = false;
+		if(!towers.get(towerB).empty() && !towers.get(towerA).empty()) {
+			if(towers.get(towerB).peek() < towers.get(towerA).peek()) valid = false;
+		}
+		
+		return valid;
+	}
+	
+	static boolean checkTowers(ArrayList<Stack<Integer>> towers) {
+		boolean isSolution = true;
+		
+		if(!towers.get(0).empty()) isSolution = false;
+		if(!towers.get(1).empty()) isSolution = false;
+		// If the first and second tower are empty, all the disks are in the third tower
+		return isSolution;
+	}
+	
+	static ArrayList<Stack<Integer>> initTowers(int n) {
+		// n represents the size of the largest disk;
+		ArrayList<Stack<Integer>> towers = new ArrayList<Stack<Integer>>();
+		towers.add(new Stack<Integer>());
+		towers.add(new Stack<Integer>());
+		towers.add(new Stack<Integer>());
+		for(int i = 0; i < n; i++) {
+			towers.get(0).push(n-i);
+		}
+		
+		return towers;
+	}
+	
+	static void printTowers(ArrayList<Stack<Integer>> towers) {
+		for(int i = 0; i < towers.size(); i++) {
+			Stack<Integer> temp = new Stack<Integer>();
+			while(!towers.get(i).empty()) {
+				temp.push(towers.get(i).pop());
+			}
+			out.print("Tower " + i + ": ");
+			while(!temp.empty()) {
+				int val = temp.pop();
+				out.print("[ " + val + " ]");
+				towers.get(i).push(val);
+				System.out.print("\t");
+			}
+
+		}
+	}
+```
 
 ### 8.7 Permutations without Dups
 > Write a method to compute all permutations of a string of unique characters.
@@ -298,9 +531,22 @@ What does a string without unique characters imply?
 > Implement an algorithm to print all valid (e.g., properly opened and closed) combinations of n pairs of parentheses.
 - Sample output: ((())), (()()), (())(), ()(()), ()()()
 
+for N = 1
+()
+- f(1) = ()
+
 for N = 2
 (())
 ()()
+- f(2) = (f(1)) , f(1)(), ()(f(1))
+
+for N = 3
+((()))
+(()())
+()(())
+(())()
+()()()
+- f(3) = (f(2)), f(2)(), ()(f(2))
 
 for N = 4
 (((())))
@@ -313,6 +559,16 @@ for N = 4
 (())()()
 ()(())()
 ()()()()
+
+Relation: 
+- The permutation of n completely nested parentheses is:
+    1. `()` nesting all permutations of n-1 parentheses
+        - `(permutation(n-1))`
+    2. `()` prepended to all permutations of n-1 parentheses
+        - `()permutation(n-1)`
+    3. `()` appended to all permutations of n-1 parentheses
+        - `permutation(n-1)`
+- If n = 1, the only permutation is '()'
 
 Algorithm:
 - Start with completely nested parentheses
@@ -327,31 +583,54 @@ What is a valid parenthesis pair?
 
 *A valid string of N parentheses pairs is one where there are N opening parentheses and N closing parentheses.*
 
+Java:
+```
+	static ArrayList<String> parens(int n) {
+		
+		ArrayList<ArrayList<String>> permutations = new ArrayList<ArrayList<String>>();
+		permutations.add(new ArrayList<String>());
+		permutations.get(0).add("()");
+		
+		permutations.add(new ArrayList<String>());
+		permutations.get(1).add("(())");
+		permutations.get(1).add("()()");
+		
+		for(int i=2; i < n; i++) {
+			ArrayList<String> newPerms = new ArrayList<String>();
+			for(String s : permutations.get(i-1)) {
+				String surrounded = "(" + s + ")";
+				String prepended = "()" + s;
+				String appended = s + "()";
+				newPerms.add(surrounded);
+				newPerms.add(prepended);
+				newPerms.add(appended);
+			}
+			permutations.add(newPerms);
+		}
+		
+		return permutations.get(n-1);		
+	}
+```
+In JavaScript:
 ```
 function parens(N) {
-    
-    let s = '';
+    let permutations = [];
+    permutations.push(['()']);
+    permutations.push(['(())', '()()']);
 
-    for(let i = 0; i < N; i++) {
-        s += '(';
-    }
-    for(let i = 0; i < N; i++) {
-        s += ')';
-    }
+    for(let i = 2; i < N; i++) {
+        let newPerms = [];
 
-    console.log(s);
-    parensHelper(N, s);
-}
-
-function parensHelper(N, s) {
-    // Base case: s is a string of N unnested parentheses
-    let baseCase = '';
-    for(let i = 0; i < N; i++) baseCase += '()';
-    if(baseCase === s) {
-        console.log(s);
-        return;
+        let oldPerms = permutations[i-1];
+        for(let j=0; j<oldPerms.length; j++) {
+            newPerms.push(`(${oldPerms[j]})`);
+            newPerms.push(`()${oldPerms[j]}`);
+            newPerms.push(`${oldPerms[j]}())`);
+        }
+        permutations.push(newPerms);
     }
 
+    return new Set(permutations[N-1]);
 }
 ```
 
