@@ -57,10 +57,10 @@ Enumeration of all winning outcomes
 3. 111
 4. 011
 
-The probability of 1 is P(S)*P(S)*(1-P(S))
+The probability of 1 is P(S)\*P(S)\*(1-P(S))
 
 - If S = 0.6
-- The probability of 2/3 shots is 0.6*0.6*0.4 = 0.144
+- The probability of 2/3 shots is 0.6\*0.6\*0.4 = 0.144
 - Three of these events exist
 - The probability of 2/3 shots is 0.6^3 =  0.216
 3(0.144)+0.216 = 0.648
@@ -72,7 +72,7 @@ The probability generalized:
 - W = winning
 Winning Game 1: P(W) = P(S)
 
-Winning Game 2: P(W) = 3(P(S)*P(S)*(1-P(S))) + P(S)^3
+Winning Game 2: P(W) = 3(P(S)\*P(S)\*(1-P(S))) + P(S)^3
 	= 3P(S)^2 + 3(1-P(S)) + P(S)^3
 	= P(S)^3 + 3P(S)^2 - P(S) + 3
 
@@ -121,7 +121,7 @@ The first number indicates the number of quarts in the 5-quart jug and the secon
 Answer: If there x number of blue-eyed people on the island it will x days for them to leave
 Why?
 
-### 6.7 The Apocalypse - Incomplete
+### 6.7 The Apocalypse - (Looked at answer)
 > In the new post-apocalyptic world, the world queen is desperately concerned about the birth rate. Therefore, she decrees that all families should ensure that they have one girl or else they face massive fines. If all families abide by this policy-that is, they have continue to have children until they have one girl, at which point they immediately stop-what will the gender ratio of the new generation be? (Assume that that odds of someone having a boy or a girl on any given pregnancy is equal.) Solve this out logically and then write a computer simulation of it.
 
 - What number of kids grants the higheset percentage of there existing one girl at the end of it all?
