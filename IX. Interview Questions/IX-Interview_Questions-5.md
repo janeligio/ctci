@@ -99,6 +99,10 @@ insertion(N, M, i, j) {
 }
 ```
 
+Correction:
+- You will need to clear the bits from i to j first
+
+
 ### 5.2 Binary to String
 > Given a real number between 0 and 1 (e.g., 0.72) that is passed in as a double, print the binary representation. If the number cannot be represented accurately in binary with at most 32 characters, print "ERROR".
 
@@ -293,8 +297,42 @@ setBit(num, bit, i) {
 }
 ```
 
+Optimized:
+- Create masks for odd and even places
+	- Odd bit mask looks like: 0101 0101
+		- = 2^0 + 2^2 + 2^4 + 2^6...
+	- Even bit mask looks like: 1010 1010
+		- = 2^1 + 2^3 + 2^5 + 2^7...
+	- How do we create this mask?
+- AND the masks with the integer
+- Left shift the odd mask
+- Right shift the even mask
+- OR them together
+
+```
+function optimized(n) {
+	int oddMask = 0;
+	int evenMask = 0;
+
+	for(int i = 0; i <= 32; i+=2) {
+		oddMask |= 1 << i;
+	}
+	for(int i = 1; i < 32; i+=2) {
+		evenMask |= 1 << i;
+	}
+
+	int oddBits = n & oddMask;
+	int evenBits = n & evenMask;
+
+	oddBits = oddBits << 1;
+	evenBits = evenBits >> 1;
+
+	return oddBits | evenBits;
+}
+```
+
 ### 5.8 Draw Line
-> A monochrome screen is stored as a singlea rray of bytes, allowing eight consecutive pixels to be stored in one byte. The screen has width w, where w is divisible by 8 (that is, no byte will be split across rows). The height of the screen, of course, can be derived from the length of the array and the width. Implement a function that draws a horizontal line from (x1, y) to (x2, y).
+> A monochrome screen is stored as a single array of bytes, allowing eight consecutive pixels to be stored in one byte. The screen has width w, where w is divisible by 8 (that is, no byte will be split across rows). The height of the screen, of course, can be derived from the length of the array and the width. Implement a function that draws a horizontal line from (x1, y) to (x2, y).
 - The method signature should look something like: drawLine(byte[] screen, int width, int x1, int x2, int y)
 
 ```
