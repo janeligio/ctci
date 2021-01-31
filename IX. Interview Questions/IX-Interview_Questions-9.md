@@ -21,32 +21,32 @@ void bubbleSort(int[] arr) {
 Java:
 ```
 void selectionSort(int[] arr) {
-		for(int i = 0; i < arr.length; i++) {
-			int min = i;
-			for(int j = i; j < arr.length; j++) {
-				if(arr[j] < arr[min]) {
-					min = j;		
-				}
-			}
-			swap(arr, i, min);
-		}
+        for(int i = 0; i < arr.length; i++) {
+            int min = i;
+            for(int j = i; j < arr.length; j++) {
+                if(arr[j] < arr[min]) {
+                    min = j;		
+                }
+            }
+            swap(arr, i, min);
+        }
     }
 ```
 
 ##### Insertion Sort
 ```
 void insertionSort(int[] arr) {
-		for(int i = 1; i < arr.length; i++) {
-			int toInsert = i;
-			// Insert in the correct place in the sorted pile
-			int startOfSorted = toInsert-1;
-			while(startOfSorted > -1  && arr[toInsert] < arr[startOfSorted]) {
-				swap(arr, toInsert, startOfSorted);
-				printArray(arr);
+        for(int i = 1; i < arr.length; i++) {
+            int toInsert = i;
+            // Insert in the correct place in the sorted pile
+            int startOfSorted = toInsert-1;
+            while(startOfSorted > -1  && arr[toInsert] < arr[startOfSorted]) {
+                swap(arr, toInsert, startOfSorted);
+                printArray(arr);
 
-				toInsert = startOfSorted;
-				startOfSorted = toInsert-1;
-			}
-		}
+                toInsert = startOfSorted;
+                startOfSorted = toInsert-1;
+            }
+        }
     }
 ```
