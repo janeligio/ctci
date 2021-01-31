@@ -131,3 +131,145 @@ void insertionSort(int[] arr) {
 		return left;
 	}
 ```
+
+### 10.1 Sorted Merge
+> You are given two sorted arrays, A and B, where A has a large enough buffer at the end to hold B. Write a method to merge B into A in sorted order.
+
+A looks like [23 43 2354 254 2 2              ]
+B looks like [ 23 2354 25 25]
+
+Algorithm:
+- Start at the end of A, where the largest item should be.
+- Insert into that space the larger of the ends of array A and array B
+- Do this until all of B is inserted
+
+Java:
+```
+	// 10.1 Sorted Merge
+	void sortedMerge(int[] a, int[] b) {
+		int index = a.length - 1;
+		int indexA = a.length - b.length - 1;
+		int indexB = b.length - 1;
+		
+		while(indexB >= 0) {
+			if(a[indexA] > b[indexB]) {
+				swap(a, indexA, index);
+				index--;
+				indexA--;
+			} else if(a[indexA] == b[indexB]) {
+				a[index] = a[indexA];
+				index--;
+				a[index] = b[indexB];
+				indexA--;
+				indexB--;
+			} else {
+				a[index] = b[indexB];
+				index--;
+				indexB--;
+			}
+			index--;
+		}
+	}
+```
+
+Runtime: O(b)
+Spacetime: O(1)
+
+### 10.2 Group Anagrams
+> Write a method to sort an array of Strings so that all the anagrams are next to each other.
+
+If string A is an anagram of string B, string A is equal to string B if they are both sorted
+
+Brute-force:
+- Implement boolean isAnagram(String a, StringB) that checks if one string is an anagram of another
+- For each element, find its anagrams, and swap places
+
+Java:
+```
+	static void groupAnagrams(String[] strings) {
+		int sortedIndex = 0;
+		for(int i = strings.length-1; i > sortedIndex; i--) {
+			swap(strings, i, sortedIndex);
+			int j = strings.length-1;
+			// Find anagrams
+			String currentString = strings[sortedIndex];
+			out.println(currentString);
+			while(j >= sortedIndex) {
+				printArray(strings);
+				out.println(j);
+				if(isAnagram(strings[j], currentString)) {
+					sortedIndex++;
+					swap(strings, j, sortedIndex);
+				}
+				j--;
+			}
+			sortedIndex++;
+			out.println("Sorted index: " +sortedIndex);
+		}
+	}
+	
+	static void swap(String[] strings, int x, int y) {
+		String temp = strings[y];
+		strings[y] = strings[x];
+		strings[x] = temp;
+	}
+	
+	static boolean isAnagram(String a, String b) {
+		a = sortString(a);
+		b = sortString(b);
+		if(a.length() != b.length()) return false;
+		
+		int i = 0;
+		while(i < a.length()) {
+			if(a.charAt(i) != b.charAt(i)) return false;
+			i++;
+		}
+		
+		return true;
+	}
+    static String sortString(String inputString) 
+    { 
+        // convert input string to char array 
+        char tempArray[] = inputString.toCharArray(); 
+          
+        // sort tempArray 
+        Arrays.sort(tempArray); 
+          
+        // return new sorted string 
+        return new String(tempArray); 
+    }
+```
+
+### 10.3 Search in Rotated Array - Incomplete
+> Given a sorted array of n integers that has been rotated an unknown number of times, write code to find an element in the array. You may assume that the array was originally sorted in increasing order.
+
+
+1. Find the start of the array
+2. Implement binary search that handles this
+3. Run binary search
+
+### 10.4 Sorted Search, No Size
+> You are given an array-like data structure `Listy` which lacks a size method. It does, however, have an elementAt(i) method that returns the element at index i in O(1) time. If i is beyond the bounds of the data structure, it returns -1. (For this reason, the data structure only supports positive integers.) Given a Listy which contains sorted, positive integers, find the index at which an element x occurs. If x occurs multiple times, you may return any index.
+
+This problem consists of finding the size of this list. How do we do that? It would perform like a binary search where you keep incrementing by an exponential amount until what you get is < 0. The problem is how much do we increment by? 
+
+```
+void sortedSearch(Listy arr, int val) {
+
+    int incrementBy = 10;
+    int length = 0;
+    int range = 0;
+    while(i > 0) {
+        if(arr.get(range) < 0) {
+            for(int i = range-incrementBy; i < range; i++) {
+                if(arr.get(i) < 0) {
+                    length =  i;
+                }
+            }
+        }
+        range += incrementBy;
+    }
+
+    return binarySearch(arr, 0, length);
+}
+```
