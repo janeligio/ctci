@@ -273,3 +273,80 @@ void sortedSearch(Listy arr, int val) {
     return binarySearch(arr, 0, length);
 }
 ```
+
+### 10.5 Sparse Search
+> Given a sorted array of strings that is interspersed with empty strings, write a method to find the location of a given string.
+
+### 10.6 Sort Big File
+> Imagine you have a 20 GB file with one string per line. Explain how you would sort the file.
+
+Realistically, you can't put 20GB into memory, so you'd have to sort this partition by partition.
+
+1. Decide how big each partition is. Let's say 1GB
+2. For the first GB, we run bucket sort.
+    - If we just assume that the strings only contain characters from a-z, we'd have 26 buckets.
+3. Write to file
+    - We would have 26 files
+4. Keep processing original file, GB by GB
+    - At each GB we drop each string in the bucket that corresponds to its first letter
+5. Once all the strings have been dropped into a bucket, we sort each bucket.
+    - After a bucket is sorted, copy back to a master file that will store the sorted array of strings.
+
+### 10.7 Missing Int
+> Given an input file with four billion non-negative integers, provide an algorithm to generate an integer that is not contained in the file. Assume you have 1 GB of memory available for this task
+
+> FOLLOW UP: What if you have only 10 MB of memory? Assume that all the values are distinct and we now have no more than one billion non-negative integers.
+
+1. Find the min or max
+2. We know for sure that an integer outside of the min and max range will not be an integer in the list
+3. Process file, GB at a time and simply iterate through all integers.
+4. Once the file is processed, you will have a min and max and you can choose any number outside of this range.
+
+### 10.8 Find Duplicates
+> You have an array with all numbers from 1 to N, where N is at most 32,000. The array may have duplicate entries and you do not know what N is. With only 4 kilobytes of memory available, how would you print all duplicate elements in the array.
+
+4 Kilobytes = 1K 4-byte ints = 1024 4-byte ints
+
+Max value of 2-byte short is 65535.
+
+So you can process 2048 2-byte shorts.
+
+For this kind of problem, it is wise to think about using bit vectors.
+
+### 10.9 Sorted Matrix Search
+> Given an M x N matrix in which each row and each column is sorted in ascending order, write a method to find an element.
+
+Peforming binary search at each row O(min(M,N)log(max(M,N)))
+- Naive approach
+
+Java:
+```
+	static int sortedMatrixSearch(int[][] matrix, int value) {
+		for(int i = 0; i < matrix.length; i++) {
+			int result = binarySearch(matrix[i], value);
+			if(result > 0) {
+				return result;
+			}
+		}
+		return -1;
+	}
+	
+	static int binarySearch(int[] array, int value) {
+		int result = -1;
+		
+		int low = 0;
+		int high = array.length-1;
+		while(low <= high) {
+			int middle = (low/high)/2;
+			if(array[middle] == value) {
+				return array[middle];
+			} else if(array[middle] > value) {
+				low = middle+1;
+			} else {
+				high = middle-1;
+			}
+		}
+		
+		return result;
+	}
+```
