@@ -387,3 +387,5 @@ A matrix of such kind would look something like this:
 [35][45][56][59]
 [43][50][58][61]
 ```
+
+~~We can see that at all numbers at each "diagonal", is greater than all the numbers in the previous diagonal and less than all the numbers in the next diagonal.~~
