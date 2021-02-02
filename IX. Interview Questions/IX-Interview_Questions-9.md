@@ -319,6 +319,33 @@ For this kind of problem, it is wise to think about using bit vectors.
 Peforming binary search at each row O(min(M,N)log(max(M,N)))
 - Naive approach
 
+Driver program to generate such a matrix:
+```
+	int[][] initSortedMatrix(int M, int N) {
+		int[][] matrix = new int[M][N];
+		Random rand = new Random();
+		for(int i = 0; i < matrix.length; i++) {
+			for(int j = 0; j < matrix[i].length; j++) {
+				if(i == 0 && j == 0) {
+					matrix[i][j] = rand.nextInt(10);
+				} else if(i-1 < 0) {
+					int greater = matrix[i][j-1];
+					matrix[i][j] = rand.nextInt(10)+greater;
+				} else if(j-1 < 0) {
+					int greater = matrix[i-1][j];
+					matrix[i][j] = rand.nextInt(10)+greater;
+				} else {
+					int greater = matrix[i][j-1] > matrix[i-1][j] ? matrix[i][j-1] : matrix[i-1][j];
+					int newRandom = rand.nextInt(10) + greater;
+					matrix[i][j] = newRandom;				
+				}
+				matrix[i][j] = matrix[i][j] + 1;
+			}
+		}
+		return matrix;
+	}
+```
+
 Java:
 ```
 	static int sortedMatrixSearch(int[][] matrix, int value) {
@@ -350,3 +377,11 @@ Java:
 		return result;
 	}
 ```
+
+A matrix of such kind would look something like this:
+[9][12][17][18]
+[13][15][20][27]
+[22][28][38][42]
+[32][39][47][54]
+[35][45][56][59]
+[43][50][58][61]
