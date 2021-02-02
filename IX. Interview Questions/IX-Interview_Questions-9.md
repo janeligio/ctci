@@ -389,3 +389,67 @@ A matrix of such kind would look something like this:
 ```
 
 ~~We can see that at all numbers at each "diagonal", is greater than all the numbers in the previous diagonal and less than all the numbers in the next diagonal.~~
+
+That matrix could also look like this:
+
+```
+[10][11][12][13][14]
+[15][16][17][18][19]
+[20][21][22][23][24]
+[25][26][27][28][29]
+[30][31][32][33][34]
+```
+
+We can eliminate a column from contention by checking if the value falls within the range of matrix[i][0] and matrix[i][matrix[i].length-1].
+
+We can also see that at each "subsquare", the bottom index contains the integer smaller than each integer in the subsquare. The top index contains the integer greater than each integer in the subsquare.
+
+So we can perform searches like this:
+
+```
+Looking for: 16
+
+1. Split into squares and check top and bottom indices
+
+Subsquare 1
+([10])[11][12][13][14]
+[15][16][17][18][19]
+[20][21][22][23]([24])
+
+Subsquare 2
+([25])[26][27][28][29]
+[30][31][32][33]([34])
+
+Range of ss1 is 10-24
+Range of ss2 is 25-34
+
+Soo check ss1
+
+2. Split into squares and check top and bottom indices
+
+Subsquare 1
+([10])[11][12][13][14]
+[15][16][17][18]([19])
+
+Subsquare 2
+([20])[21][22][23]([24])
+
+Range of ss1 is 10-19
+Range of ss2 is 20-24
+
+3. Split into squares and check top and bottom indices
+
+Subsquare 1
+([10])[11][12][13]([14])
+
+Subsquare 2
+([15])[16][17][18]([19])
+
+Range of ss1 is 10-14
+Range of ss2 is 15-19
+
+4. If we're left with one row/one array, let's just do binary search
+```
+
+Runtime analysis:
+Finding the correct row is a matter of how many rows there are. Performing binary search after finding the row is a log(N) operation. Since these are both logarithmic runtimes, it doesn't matter if you split up the squares row-wise or column-wise. 
