@@ -1,4 +1,4 @@
-# IX. Interview Questions - Chapter 9 | System Design and Scalability
+# IX. Interview Questions - Chapter 10 | Sorting and Searching
 
 *Basic Sorting Algorithms Implementation*
 
@@ -409,6 +409,12 @@ So we can perform searches like this:
 ```
 Looking for: 16
 
+[10][11][12][13][14]
+[15][16][17][18][19]
+[20][21][22][23][24]
+[25][26][27][28][29]
+[30][31][32][33][34]
+
 1. Split into squares and check top and bottom indices
 
 Subsquare 1
@@ -423,7 +429,7 @@ Subsquare 2
 Range of ss1 is 10-24
 Range of ss2 is 25-34
 
-Soo check ss1
+So check ss1
 
 2. Split into squares and check top and bottom indices
 
@@ -437,6 +443,8 @@ Subsquare 2
 Range of ss1 is 10-19
 Range of ss2 is 20-24
 
+So check ss1
+
 3. Split into squares and check top and bottom indices
 
 Subsquare 1
@@ -448,8 +456,62 @@ Subsquare 2
 Range of ss1 is 10-14
 Range of ss2 is 15-19
 
-4. If we're left with one row/one array, let's just do binary search
+4. If we're left with one row/one array, let's just do binary search on ss1
 ```
 
 Runtime analysis:
-Finding the correct row is a matter of how many rows there are. Performing binary search after finding the row is a log(N) operation. Since these are both logarithmic runtimes, it doesn't matter if you split up the squares row-wise or column-wise. 
+Finding the correct row is a matter of how many rows there are. Performing binary search after finding the row is a log(N) operation. Since these are both logarithmic runtimes, it doesn't matter if you split up the squares row-wise or column-wise.
+
+```
+	int sortedMatrixSearchOptimized(int[][] matrix, int value) {
+		int[] range = {0, matrix.length-1};
+		
+		int c = matrix[0].length;
+		
+		while(range[0] != range[1]) {
+			int mid = (range[1] - range[0])/2;
+			
+			int bottomIndex1 = matrix[range[0]][0];
+			int topIndex1 = matrix[mid][c-1];
+			int[] subSquare1 = {bottomIndex1, topIndex1};
+
+			int bottomIndex2 = matrix[mid+1][0];
+			int topIndex2 = matrix[range[1]][c-1];
+			int[] subSquare2 = {bottomIndex2, topIndex2};
+			
+			if(inRange(subSquare1, value)) {
+				range[1] = mid;
+			} else if(inRange(subSquare2, value)) {
+				range[0] = mid+1;
+			}
+		}
+		
+		int item = binarySearch(matrix[range[0]], value);
+		
+		return item;
+	}
+	
+	boolean inRange(int[] square, int value) {
+		if(value > square[0] && value < square[1]) {
+			return true;
+		}
+		return false;
+	}
+```
+
+### 10.10 Rank from Stream - Incomplete
+> Imagine you are reading in a stream of integers. Periodically, you wish to be able to look up the rank of a number x (the number of values less than or equal to x). Implement the data structures and algorithms to support these operations. That is, implement the method track(int x), which is called when each number is generated, and the method getRankOfNumber(int x), which returns the number of values less than or equal to x (not including x itself).
+
+EXAMPLE
+
+Stream (in order of appearance): 5, 1, 4, 4, 5, 9, 7, 13, 3
+
+`getRankOfNumber(1) = 0`
+`getRankOfNumber(3) = 1`
+`getRankOfNumber(4) = 3`
+
+### 10.11 Peaks and Valleys - Incomplete
+> In an array of integers, a "peak" is an element which is greater than or qual to the adjacent integers and a valley is an element which is less than or equal to the adjacent integers. For example, in the array {5, 8, 6, 2, 3, 4, 6}, {8, 6} are peaks and {5, 2} are valleys. Given an array of integers, sort the array into an alternating sequence of peaks and valleys
+
+9 19 10 4 19 9 13 13 1 7 
+19 9 10 4 19 9 13 13 1 7 
