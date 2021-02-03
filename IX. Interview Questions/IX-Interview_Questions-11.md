@@ -35,3 +35,13 @@ Then we can test out out-of-bound cases and weird inputs. The bounds should be 0
 
 ### 11.4 No Test Tools
 > How would you load test a webpage without using any test tools?
+
+How do we simulate simultaneous traffic to a webpage? We can open up a bunch of windows. Or we can create a program to do it for us. I suggest using multiple threads to send a bunch of HTTP requests via something like curl or HTTPie. I would only get back the HTTP header instead of wasting resources on the body. Actually, it's probably important that we test HTTP server's ability to serve as well. That's an important question because we can see if the webpage is optimized and not an unreasonable file size. After N tests, we see what happens with to HTTP headers. Are we getting an OK? Good. It might also be wise to do this testing from more than one location if we were able to do that because the webpage would probably get cached and those HTTP requests we were making would probably not even get to our servers.
+
+### 11.5 Test a Pen
+> How would you test a pen?
+
+First we see if it does what it actually does. It does? Great. Then we can look at its durability. If I accidentally drop a pen an cold floor tile will it shatter like glass? Would it stop working? I'd probably do these tests N times. Then I would test how long we can use this pen before it runs out of ink. If we're not worried about the ink then we can probably skip this. If we're not the supplier of that, then who cares? If we were, then we'd probably want a good lasting pen. How long we aiming here? A couple months, a year before having to replace it? This probably determines a lot of the price. Then we test it under normal circumstances. We perhaps perform surveys to collect data on real-world everyday use. Does it hold up? Are people satisfied?
+
+### 11.6 Test an ATM
+> How would you test an ATM in a distributed banking system?
