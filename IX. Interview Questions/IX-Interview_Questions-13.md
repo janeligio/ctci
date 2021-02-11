@@ -1,4 +1,4 @@
-# IX. Interview Questions - Chapter 12 | Java
+# IX. Interview Questions - Chapter 13 | Java
 
 ### 13.1 Private Constructor
 > In terms of inheritance, what is the effect of keeping a constructor private?
